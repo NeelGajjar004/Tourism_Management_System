@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Add Company</title>
+    </h:head>
+    <h:body>
+        <h:messages style="color: red"/>
+        <h:form>
+            <h:panelGrid border="2" columns="2">
+                <f:facet name="header">
+                    <h:outputText value="Add Company"/>
+                </f:facet>
+                
+                <h:outputLabel for="cname" value="Company Name : "/>
+                <h:inputText id="cname" value="#{companyBean.cname}" required="true" requiredMessage="Company Name Can not be Blank"/>
+                
+                <h:outputLabel for="website" value="Website : "/>
+                <h:inputText id="website" value="#{companyBean.website}" required="true" requiredMessage="Website Can not be Blank"/>
+                
+                <h:outputLabel for="city" value="City : "/>
+                <h:inputText id="city" value="#{companyBean.city}" required="true" requiredMessage="City Can not be Blank"/>
+                
+                <h:commandButton value="Add" action="#{companyBean.ADDCompany()}"/>
+                
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

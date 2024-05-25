@@ -9,16 +9,41 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+<!--    <security-constraint>
+        <display-name>Secure pages for Admin</display-name>
+        <web-resource-collection>
+            <web-resource-name>Admin's Resource</web-resource-name>
+            <description>Organizer Secured Resources</description>
+            <url-pattern>/Admin/*</url-pattern>
+             <url-pattern>/Homepage/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only for Admin</description>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>-->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/Homepage/403forbidden.jsf</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/Homepage/404pagenotfound.jsf</location>
+    </error-page>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>  
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsf</welcome-file>
+        <welcome-file>Homepage/index.jsf</welcome-file>
     </welcome-file-list>
 </web-app>

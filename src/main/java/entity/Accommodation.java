@@ -6,7 +6,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,6 +31,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Accommodation.findByAid", query = "SELECT a FROM Accommodation a WHERE a.aid = :aid"),
     @NamedQuery(name = "Accommodation.findByName", query = "SELECT a FROM Accommodation a WHERE a.name = :name"),
     @NamedQuery(name = "Accommodation.findByCountry", query = "SELECT a FROM Accommodation a WHERE a.country = :country"),
+    @NamedQuery(name = "Accommodation.findByState", query = "SELECT a FROM Accommodation a WHERE a.state = :state"),
     @NamedQuery(name = "Accommodation.findByCity", query = "SELECT a FROM Accommodation a WHERE a.city = :city"),
     @NamedQuery(name = "Accommodation.findByAddress", query = "SELECT a FROM Accommodation a WHERE a.address = :address"),
     @NamedQuery(name = "Accommodation.findByDescription", query = "SELECT a FROM Accommodation a WHERE a.description = :description"),
@@ -57,6 +57,11 @@ public class Accommodation implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "country")
     private String country;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "state")
+    private String state;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -100,10 +105,11 @@ public class Accommodation implements Serializable {
         this.aid = aid;
     }
 
-    public Accommodation(Integer aid, String name, String country, String city, String address, String description, String roomNumber, String type, int capacity, int price) {
+    public Accommodation(Integer aid, String name, String country, String state, String city, String address, String description, String roomNumber, String type, int capacity, int price) {
         this.aid = aid;
         this.name = name;
         this.country = country;
+        this.state = state;
         this.city = city;
         this.address = address;
         this.description = description;
@@ -135,6 +141,14 @@ public class Accommodation implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getCity() {
@@ -193,7 +207,6 @@ public class Accommodation implements Serializable {
         this.price = price;
     }
 
-    @JsonbTransient
     public Collection<Booking> getBookingCollection() {
         return bookingCollection;
     }

@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,7 +61,7 @@ public class Users implements Serializable {
     @Size(max = 15)
     @Column(name = "gender")
     private String gender;
-    @Size(max = 100)
+    @Size(max = 255)
     @Column(name = "photo")
     private String photo;
     @Column(name = "dob")
@@ -157,7 +156,6 @@ public class Users implements Serializable {
         this.address = address;
     }
 
-    @JsonbTransient
     public Collection<Feedback> getFeedbackCollection() {
         return feedbackCollection;
     }
@@ -166,7 +164,6 @@ public class Users implements Serializable {
         this.feedbackCollection = feedbackCollection;
     }
 
-    @JsonbTransient
     public Collection<Booking> getBookingCollection() {
         return bookingCollection;
     }
@@ -175,7 +172,6 @@ public class Users implements Serializable {
         this.bookingCollection = bookingCollection;
     }
 
-    @JsonbTransient
     public Collection<Groups> getGroupsCollection() {
         return groupsCollection;
     }

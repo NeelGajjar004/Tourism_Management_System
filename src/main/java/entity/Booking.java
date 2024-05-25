@@ -7,7 +7,6 @@ package entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -149,7 +148,6 @@ public class Booking implements Serializable {
         this.status = status;
     }
 
-    @JsonbTransient
     public Collection<Feedback> getFeedbackCollection() {
         return feedbackCollection;
     }
@@ -182,7 +180,6 @@ public class Booking implements Serializable {
         this.username = username;
     }
 
-    @JsonbTransient
     public Collection<Payment> getPaymentCollection() {
         return paymentCollection;
     }
