@@ -4,6 +4,9 @@
  */
 package ejb;
 
+import entity.Users;
+import java.math.BigInteger;
+import java.util.Date;
 import javax.ejb.Local;
 
 /**
@@ -12,5 +15,12 @@ import javax.ejb.Local;
  */
 @Local
 public interface authBeanLocal {
+
+    public boolean checkUserName(String username);
+    public boolean checkUserEmail(String email);
+    public boolean Register(String username,String email,String password,String gender,String photo,Date dob,BigInteger phoneno,String address);
+    public Users Login(String username);
+    
+    public boolean addGroups(String groupname,String username);
     
 }

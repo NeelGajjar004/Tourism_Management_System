@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -156,6 +157,7 @@ public class Users implements Serializable {
         this.address = address;
     }
 
+    @JsonbTransient
     public Collection<Feedback> getFeedbackCollection() {
         return feedbackCollection;
     }
@@ -164,6 +166,7 @@ public class Users implements Serializable {
         this.feedbackCollection = feedbackCollection;
     }
 
+    @JsonbTransient
     public Collection<Booking> getBookingCollection() {
         return bookingCollection;
     }
@@ -172,6 +175,7 @@ public class Users implements Serializable {
         this.bookingCollection = bookingCollection;
     }
 
+    @JsonbTransient
     public Collection<Groups> getGroupsCollection() {
         return groupsCollection;
     }

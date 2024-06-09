@@ -6,26 +6,37 @@ package Beans;
 
 import client.RestClient;
 import entity.Company;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 /**
  *
  * @author Admin
  */
 @Named(value = "companyBean")
-@RequestScoped
-public class companyBean {
+@SessionScoped
+public class companyBean implements Serializable{
     
     RestClient rc;
     Response rs;
 
     int cid;
+    @NotNull
     String cname;
+    @NotNull
     String website;
+    @NotNull
     String city;
     
     Company company;
@@ -34,6 +45,9 @@ public class companyBean {
     
     
     public companyBean() {
+        rc = new RestClient();
+        companys = new ArrayList<>();
+        gcompanys = new GenericType<Collection<Company>>(){};
     }
 
     public int getCid() {
@@ -91,13 +105,23 @@ public class companyBean {
         this.companys = companys;
     }
     
+    public void openNew() {
+        this.company = new Company();
+    }
     
     
-    public String ADDCompany(){
+    public String CompanyInsert(){
         try{
-            System.out.println("==========> IN ADD COMAPNY METHOD");
-            rc.addCompany(cname, website, city);
-            return "displayCompany.jsf";
+//            if(cname == "" || website == "" || city == ""){
+//                FacesContext.getCurrentInstance().addMessage("message",new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Validation", "All Fields are Required"));
+//            }else{
+//                System.out.println("==========> IN ADD COMAPNY METHOD");
+//                rc.addCompany(cname, website, city);
+//                return "displayCompany.jsf";
+//            }
+//            System.out.println("==========> IN ADD COMAPNY METHOD");
+//            rc.addCompany(cname, website, city);
+//            return "displayCompany.jsf";
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -120,12 +144,30 @@ public class companyBean {
     
     public String deleteCompany(){
         try{
+//            cid = company.getCid();
             rc.removeCompany(String.valueOf(cid));
-            return "displayCompany.jsf";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete Comapny", "Record Deleted Successfully...!"));
+//            FacesContext context = FacesContext.getCurrentInstance();
+//        try {
+//            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/displayCompany.jsf");
+            return "/displayCompany.jsf";
         }catch(Exception e){
             e.printStackTrace();
         }
+//            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete Comapny", "Record Deleted Successfully...!"));
         return "displayCompany.jsf";
+    }
+    
+    public String redirectToaddCompany() {
+        return "addCompany.jsf";
+    }
+    
+    public String redirectTodisplayCompany() {
+        return "displayCompany.jsf";
+    }
+    
+    public String redirectupdateCompany() {
+        return "updateCompany.jsf";
     }
     
 }

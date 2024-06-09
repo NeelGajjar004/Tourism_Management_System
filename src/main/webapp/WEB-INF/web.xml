@@ -9,13 +9,21 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/font-woff2</mime-type>
+    </mime-mapping>
 <!--    <security-constraint>
         <display-name>Secure pages for Admin</display-name>
         <web-resource-collection>
             <web-resource-name>Admin's Resource</web-resource-name>
             <description>Organizer Secured Resources</description>
             <url-pattern>/Admin/*</url-pattern>
-             <url-pattern>/Homepage/*</url-pattern>
+             <url-pattern/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
@@ -26,13 +34,14 @@
             <role-name>Admin</role-name>
         </auth-constraint>
     </security-constraint>-->
+    
     <error-page>
         <error-code>403</error-code>
-        <location>/Homepage/403forbidden.jsf</location>
+        <location>/403forbidden.jsf</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/Homepage/404pagenotfound.jsf</location>
+        <location>/404pagenotfound.jsf</location>
     </error-page>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -44,6 +53,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>Homepage/index.jsf</welcome-file>
+        <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
 </web-app>

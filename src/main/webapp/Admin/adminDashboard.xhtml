@@ -46,39 +46,35 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <h:link outcome="/index.jsf" class="navbar-brand mx-4 mb-3">
                     <h4 class="text-primary"><i class="fa fa-map-marker-alt me-2"></i>Tourism Advisor</h4>
-                </a>
+                </h:link>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <h:link outcome="adminDashboard.jsf" class="h4 fw-bold nav-item nav-link active" value="Dashboard"/>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Company</a>
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Company</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <!--<a href="button.html" class="dropdown-item">Buttons</a>-->
-                            <h:link outcome="Company/addCompany.jsf" class="dropdown-item" value="Add Company"/>
-                            <h:link outcome="displayCompany.jsf" class="dropdown-item" value="Company List"/>
-                            <!--<h:link outcome="Company/displayCompany.jsf" class="dropdown-item" value="Company List"/>-->
-                            <!--<a href="typography.html" class="dropdown-item">Typography</a>-->
-                            <!--<a href="element.html" class="dropdown-item">Other Elements</a>-->
+                            <h:link outcome="Company/addCompany.jsf" class="h5 dropdown-item" value="Add Company"/>
+                            <h:link outcome="Company/displayCompany.jsf" class="h5 dropdown-item" value="Company List"/>
                         </div>
                     </div>
-<!--                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>-->
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Packages</a>
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Packages</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <h:link outcome="adminDashboard.jsf" class="dropdown-item" value="Add Package"/>
-                            <h:link outcome="adminDashboard.jsf" class="dropdown-item" value="Package List"/>
-                            <p:link value="Logout" outcome="/Homepage/index.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
-
-                            <!--<a href="signin.html" class="dropdown-item">Sign In</a>-->
-                            <!--<a href="signup.html" class="dropdown-item">Sign Up</a>-->
-                            <!--<a href="404.html" class="dropdown-item">404 Error</a>-->
-                            <!--<a href="blank.html" class="dropdown-item active">Blank Page</a>-->
+                            <h:link outcome="Package/addPackage.jsf" class="h5 dropdown-item" value="Add Package"/>
+                            <h:link outcome="Package/displayPackage.jsf" class="h5 dropdown-item" value="Package List"/>
                         </div>
                     </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Accommodation</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="Accommodation/addAccommodation.jsf" class="h5 dropdown-item" value="Add Accommodation"/>
+                            <h:link outcome="Accommodation/displayAccommodation.jsf" class="h5 dropdown-item" value="Accommodation List"/>
+                        </div>
+                    </div>
+                    <h:link outcome="Booking/displayBooking.jsf" class="h4 fw-bold nav-item nav-link" value="Booking List"/>
+                    <h:link outcome="Payment/displayPayment.jsf" class="h4 fw-bold nav-item nav-link" value="Payment List"/>
+                    <h:link outcome="Feedback/displayFeedback.jsf" class="h4 fw-bold nav-item nav-link" value="Feedback List"/>
                 </div>
             </nav>
         </div>
@@ -89,28 +85,24 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+                <h:link outcome="/index.jsf" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-map-marker-alt"></i></h2>
+                </h:link>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <a href="index.html" class="d-none d-md-flex ms-4">
+                <h:link outcome="/index.jsf" class="d-none d-md-flex ms-4">
                     <h3 class="text-primary border-0"><i class="fa fa-map-marker-alt me-2"></i>Tourism Advisor</h3>
-                </a>
+                </h:link>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <p:graphicImage class="rounded-circle me-lg-2" url="img/user.jpg"  alt="" style="width: 40px; height: 40px;"/>
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <p:graphicImage class="rounded me-lg-2" url="img/UserAvatar1.jpg"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                            <span class=" h5 d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <!--<a href="#" class="dropdown-item">My Profile</a>-->
-                            <p:button value="My Profile" outcome="/Homepage/index.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
-                            <p:button value="Logout" outcome="/Homepage/index.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
-                            <!--<p:link value="Logout" outcome="/Homepage/index.jsf" class="dropdown-item"/>-->
-                            <!--<a href="#" class="dropdown-item">Settings</a>-->
-                            <!--<a href="#" class="dropdown-item">Log Out</a>-->
+                            <p:button value="My Profile" outcome="/index.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
+                            <p:button value="Logout" outcome="/logout.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
                         </div>
                     </div>
                 </div>
@@ -134,12 +126,8 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 text-center text-sm-center" style="font-weight: bold;color: #13357B">
-                            <i class="fas fa-copyright me-2"/><p:link outcome="/Homepage/index.jsf" style="font-weight: bold;color: #13357B" value="Tourism Advisor"/>, All Right Reserved. 
+                            <i class="fas fa-copyright me-2"/><p:link outcome="/index.jsf" style="font-weight: bold;color: #13357B" value="Tourism Advisor"/>, All Right Reserved. 
                         </div>
-<!--                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            /*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        </div>-->
                     </div>
                 </div>
             </div>

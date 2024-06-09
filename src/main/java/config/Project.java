@@ -4,7 +4,8 @@
  */
 package config;
 
-import javax.enterprise.context.ApplicationScoped;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
 import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
@@ -20,7 +21,8 @@ import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
         priority = 30
 )
 
-@ApplicationScoped
-public class Project {
+//@ApplicationScoped
+@SessionScoped
+public class Project implements Serializable{
     
 }

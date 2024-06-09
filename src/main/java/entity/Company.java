@@ -6,6 +6,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -104,6 +105,7 @@ public class Company implements Serializable {
         this.city = city;
     }
 
+    @JsonbTransient
     public Collection<Package> getPackageCollection() {
         return packageCollection;
     }

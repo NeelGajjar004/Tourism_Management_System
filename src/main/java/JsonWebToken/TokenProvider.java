@@ -9,6 +9,7 @@ import io.jsonwebtoken.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -27,16 +28,15 @@ public class TokenProvider implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(TokenProvider.class.getName());
     
     private static final String AUTHORITIES_KEY = "auth";
-    
     private String secretKey;
-    
     private long tokenValidity;
     private long tokenValidityForRememberMe;
     
     @PostConstruct
     public void init(){
-        this.secretKey = "My-Secret-JWT-Key-Is-A-Secret";
-        this.tokenValidity = TimeUnit.HOURS.toMillis(10);
+        ResourceBundle bundle = ResourceBundle.getBundle("properties.config");
+        this.secretKey = bundle.getString("SECRET_KEY");
+        this.tokenValidity = TimeUnit.HOURS.toMillis(20);
         this.tokenValidityForRememberMe = TimeUnit.SECONDS.toMillis(REMEMBERME_VALIDITY_SECONDS);
     }
     
@@ -49,7 +49,7 @@ public class TokenProvider implements Serializable {
                 .setIssuer("localhost")
                 .claim(AUTHORITIES_KEY, authorities.stream().collect(joining(",")))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
-                .setExpiration(new Date(now+validity))
+                .setExpiration(new Date(now + validity))
                 .compact();
     }
 
@@ -73,8 +73,8 @@ public class TokenProvider implements Serializable {
             return true;
         }catch(SignatureException se){
             LOGGER.log(Level.INFO,"Invalid JWT Signature : {0} ",se.getMessage());
+            se.printStackTrace();
             return false;
         }
     }
-    
 }

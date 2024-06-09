@@ -5,8 +5,10 @@
 package entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +37,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Booking.findAll", query = "SELECT b FROM Booking b"),
     @NamedQuery(name = "Booking.findByBid", query = "SELECT b FROM Booking b WHERE b.bid = :bid"),
     @NamedQuery(name = "Booking.findByBookingdate", query = "SELECT b FROM Booking b WHERE b.bookingdate = :bookingdate"),
-    @NamedQuery(name = "Booking.findByTravelDate", query = "SELECT b FROM Booking b WHERE b.travelDate = :travelDate"),
+    @NamedQuery(name = "Booking.findByTraveldate", query = "SELECT b FROM Booking b WHERE b.traveldate = :traveldate"),
     @NamedQuery(name = "Booking.findByNumbersoftravelers", query = "SELECT b FROM Booking b WHERE b.numbersoftravelers = :numbersoftravelers"),
     @NamedQuery(name = "Booking.findByTotalamount", query = "SELECT b FROM Booking b WHERE b.totalamount = :totalamount"),
     @NamedQuery(name = "Booking.findByStatus", query = "SELECT b FROM Booking b WHERE b.status = :status")})
@@ -54,9 +56,9 @@ public class Booking implements Serializable {
     private Date bookingdate;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "travelDate")
+    @Column(name = "traveldate")
     @Temporal(TemporalType.DATE)
-    private Date travelDate;
+    private Date traveldate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "numbersoftravelers")
@@ -64,7 +66,7 @@ public class Booking implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "totalamount")
-    private long totalamount;
+    private BigInteger totalamount;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -91,10 +93,10 @@ public class Booking implements Serializable {
         this.bid = bid;
     }
 
-    public Booking(Integer bid, Date bookingdate, Date travelDate, int numbersoftravelers, long totalamount, String status) {
+    public Booking(Integer bid, Date bookingdate, Date traveldate, int numbersoftravelers, BigInteger totalamount, String status) {
         this.bid = bid;
         this.bookingdate = bookingdate;
-        this.travelDate = travelDate;
+        this.traveldate = traveldate;
         this.numbersoftravelers = numbersoftravelers;
         this.totalamount = totalamount;
         this.status = status;
@@ -116,12 +118,12 @@ public class Booking implements Serializable {
         this.bookingdate = bookingdate;
     }
 
-    public Date getTravelDate() {
-        return travelDate;
+    public Date getTraveldate() {
+        return traveldate;
     }
 
-    public void setTravelDate(Date travelDate) {
-        this.travelDate = travelDate;
+    public void setTraveldate(Date traveldate) {
+        this.traveldate = traveldate;
     }
 
     public int getNumbersoftravelers() {
@@ -132,11 +134,11 @@ public class Booking implements Serializable {
         this.numbersoftravelers = numbersoftravelers;
     }
 
-    public long getTotalamount() {
+    public BigInteger getTotalamount() {
         return totalamount;
     }
 
-    public void setTotalamount(long totalamount) {
+    public void setTotalamount(BigInteger totalamount) {
         this.totalamount = totalamount;
     }
 
@@ -148,6 +150,7 @@ public class Booking implements Serializable {
         this.status = status;
     }
 
+    @JsonbTransient
     public Collection<Feedback> getFeedbackCollection() {
         return feedbackCollection;
     }
@@ -180,6 +183,7 @@ public class Booking implements Serializable {
         this.username = username;
     }
 
+    @JsonbTransient
     public Collection<Payment> getPaymentCollection() {
         return paymentCollection;
     }

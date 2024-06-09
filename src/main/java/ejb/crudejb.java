@@ -14,6 +14,8 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import jdk.internal.net.http.hpack.HPACK;
+import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
  *
@@ -21,7 +23,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class crudejb implements crudejbLocal {
-    
+
+    Pbkdf2PasswordHashImpl ph = new Pbkdf2PasswordHashImpl();
     @PersistenceContext(unitName = "tmspu")
     EntityManager em;
     
@@ -32,7 +35,7 @@ public class crudejb implements crudejbLocal {
         Users u = new Users();
         u.setUsername(username);
         u.setEmail(email);
-        u.setPassword(password);
+        u.setPassword(ph.generate(password.toCharArray()));
         u.setGender(gender);
         u.setPhoto(photo);
         u.setDob(dob);
@@ -45,7 +48,8 @@ public class crudejb implements crudejbLocal {
     public void updateUsers(String username, String email, String password, String gender, String photo, Date dob, BigInteger phoneno, String address) {
         Users u = (Users) em.find(Users.class, username);
         u.setEmail(email);
-        u.setPassword(password);
+//        u.setPassword(password);
+        u.setPassword(ph.generate(password.toCharArray()));
         u.setGender(gender);
         u.setPhoto(photo);
         u.setDob(dob);

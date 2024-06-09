@@ -7,7 +7,7 @@ package record;
 import java.io.Serializable;
 import java.util.Set;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+//import javax.inject.Named;
 import javax.security.enterprise.CallerPrincipal;
 import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
@@ -16,17 +16,13 @@ import javax.security.enterprise.identitystore.CredentialValidationResult;
  *
  * @author Admin
  */
-@Named
 @SessionScoped
 public class KeepRecord implements Serializable {
     
     private static CredentialValidationResult result;
     private static CallerPrincipal principal;
     private static Set<String> roles;
-    private static String token;
-    private static String username;
-    private static String password;
-    private static String errorStatus;
+    private static String username, password, errorStatus,token;
     private static Credential credential;
     
     public KeepRecord(){
@@ -34,7 +30,15 @@ public class KeepRecord implements Serializable {
         token = null;
         username = null;
         password = null;
-        errorStatus = "";
+        errorStatus = null;
+    }
+    
+    public static void reset(){
+        principal = null;
+        token = null;
+        username = null;
+        password = null;
+        errorStatus = null;
     }
 
     public static CredentialValidationResult getResult() {
@@ -99,13 +103,5 @@ public class KeepRecord implements Serializable {
 
     public static void setCredential(Credential credential) {
         KeepRecord.credential = credential;
-    }
-    
-    public static void reset(){
-        principal = null;
-        token = null;
-        username = null;
-        password = null;
-        errorStatus = "";
     }
 }

@@ -1,8 +1,16 @@
 package com.mycompany.TourismAdvisor.resources;
 
+import ejb.AdminBeanLocal;
+import ejb.UserBeanLocal;
+import ejb.authBeanLocal;
 import ejb.crudejbLocal;
+import entity.Accommodation;
+import entity.Booking;
 import entity.Company;
+import entity.Feedback;
+import entity.Package;
 import entity.Groups;
+import entity.Payment;
 import entity.Users;
 import java.math.BigInteger;
 import java.util.Collection;
@@ -23,174 +31,349 @@ import javax.ws.rs.core.MediaType;
 @Path("rest")
 public class JakartaEE8Resource {
     
-    @EJB crudejbLocal cel;
+//    @EJB crudejbLocal cel;
+    @EJB AdminBeanLocal abl;
+    @EJB UserBeanLocal ubl;
+    @EJB authBeanLocal aubl;
     
-    //    ====>Users
+//   ====>      ----: Authentication APIs :----
+    
+    @GET
+    @Path("checkUserName/{username}")
+//    @Produces(MediaType.APPLICATION_JSON)
+    public boolean checkUserName(@PathParam("username") String username){
+        return aubl.checkUserName(username);
+    }
+    
+    @GET
+    @Path("checkUserEmail/{email}")
+//    @Produces(MediaType.APPLICATION_JSON)
+    public boolean checkUserEmail(@PathParam("email") String email){
+        return aubl.checkUserEmail(email);
+    }
+    
+    
     @POST
-    @Path("addusers/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
-    public void addUsers(@PathParam("username")String username,@PathParam("email")String email,@PathParam("password")String password,@PathParam("gender")String gender,@PathParam("photo")String photo,@PathParam("dob")Date dob,@PathParam("phoneno")BigInteger phoneno,@PathParam("address")String address)
-    {
-        cel.addUsers(username, email, password, gender, photo, dob, phoneno, address);
+    @Path("Register/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
+    public boolean Register(@PathParam("username") String username,@PathParam("email") String email,@PathParam("password")String password,@PathParam("gender") String gender,@PathParam("photo") String photo,@PathParam("dob") Date dob,@PathParam("phoneno") BigInteger phoneno,@PathParam("address") String address){
+        return aubl.Register(username, email, password, gender, photo, dob, phoneno, address);
+    }
+    
+    @GET
+    @Path("Login/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Users Login(@PathParam("username") String username){
+        return aubl.Login(username);
     }
     
     @POST
-    @Path("updateusers/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
-    public void updateUsers(@PathParam("username")String username,@PathParam("email")String email,@PathParam("password")String password,@PathParam("gender")String gender,@PathParam("photo")String photo,@PathParam("dob")Date dob,@PathParam("phoneno")BigInteger phoneno,@PathParam("address")String address)
-    {
-        cel.updateUsers(username, email, password, gender, photo, dob, phoneno, address);
+    @Path("authaddGroups/{groupname}/{username}")
+    public boolean authaddGroups(@PathParam("groupname") String groupname,@PathParam("username") String username){
+        return aubl.addGroups(groupname, username);
+    }
+    
+    
+//   ====>      ----: Admin APIs :----
+    
+    //    ==> Users
+    
+    @POST
+    @Path("addUser/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
+    public boolean addUser(@PathParam("username") String username,@PathParam("email") String email,@PathParam("password") String password,@PathParam("gender") String gender,@PathParam("photo") String photo,@PathParam("dob") Date dob,@PathParam("phoneno") BigInteger phoneno,@PathParam("address") String address){
+        return abl.addUser(username, email, password, gender, photo, dob, phoneno, address);
+    }
+    
+    @POST
+    @Path("updateUser/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
+    public boolean updateUser(@PathParam("username") String username,@PathParam("email") String email,@PathParam("password") String password,@PathParam("gender") String gender,@PathParam("photo") String photo,@PathParam("dob") Date dob,@PathParam("phoneno") BigInteger phoneno,@PathParam("address") String address){
+        return abl.updateUser(username, email, password, gender, photo, dob, phoneno, address);
     }
     
     @DELETE
-    @Path("removeusers/{username}")
-    public void removeUsers(@PathParam("username")String username)
+    @Path("removeUser/{username}")
+    public boolean removeUser(@PathParam("username") String username)
     {
-        cel.removeUsers(username);
+        return abl.removeUser(username);
     }
     
     @GET
+    @Path("getAllUsers")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Users> getAllUsers()
-    {
-        return cel.getAllUsers();
+    public Collection<Users> getAllUsers(){
+        return abl.getAllUsers();
     }
     
-//    ====>Groups
+    @GET
+    @Path("getUserByusername/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Users getUserByusername(@PathParam("username") String username){
+        return abl.getUserByusername(username);
+    }
+    
+//    ==> Groups
+    
     @POST
-    @Path("addgroups/{groupname}/{username}")
-    public void addGroups(@PathParam("groupname")String groupname,@PathParam("username")String username)
-    {
-        cel.addGroups(groupname, username);
+    @Path("addGroups/{groupname}/{username}")
+    public boolean addGroups(@PathParam("groupname") String groupname,@PathParam("username") String username){
+        return abl.addGroups(groupname, username);
+    }
+    
+    
+    @POST
+    @Path("updateGroups/{groupid}/{groupname}/{username}")
+    public boolean updateGroups(Integer groupid,String groupname,String username){
+        return abl.updateGroups(groupid, groupname, username);
+    }
+    
+    
+    @DELETE
+    @Path("removeGroups/{groupid}")
+    public boolean removeGroups(Integer groupid){
+        return abl.removeGroups(groupid);
+    }
+    
+    @GET
+    @Path("getAllGroups")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Groups> getAllGroups(){
+        return abl.getAllGroups();
+    }
+    
+    @GET
+    @Path("getUsersByGroupName/{groupname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Groups> getUsersByGroupName(@PathParam("groupname") String groupname){
+        return abl.getUsersByGroupName(groupname);
+    }
+    
+    @GET
+    @Path("getGroupNameByUser/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Groups> getGroupNameByUser(@PathParam("username") String username){
+        return abl.getGroupNameByUser(username);
+    }
+    
+    @GET
+    @Path("getGroupByID/{groupid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Groups getGroupByID(@PathParam("groupid") Integer groupid){
+        return abl.getGroupByID(groupid);
+    }
+    
+    
+//    ==> Company
+    
+    @POST
+    @Path("addCompany/{cname}/{website}/{city}")
+    public boolean addCompany(@PathParam("cname") String cname,@PathParam("website") String website,@PathParam("city") String city){
+        return abl.addCompany(cname, website, city);
     }
     
     @POST
-    @Path("updategroups/{groupid}/{groupname}/{username}")
-    public void updateGroups(@PathParam("groupid")int groupid,@PathParam("groupname")String groupname,@PathParam("username")String username)
-    {
-        cel.updateGroups(groupid, groupname, username);
+    @Path("updateCompany/{cid}/{cname}/{website}/{city}")
+    public boolean updateCompany(@PathParam("cid") Integer cid,@PathParam("cname") String cname,@PathParam("website") String website,@PathParam("city") String city){
+        return abl.updateCompany(cid, cname, website, city);
     }
     
     @DELETE
-    @Path("removegroups/{groupid}")
-    public void removeGroups(@PathParam("groupid")int groupid)
-    {
-        cel.removeGroups(groupid);
+    @Path("removeCompany/{cid}")
+    public boolean removeCompany(@PathParam("cid") Integer cid){
+        return abl.removeCompany(cid);
     }
     
     @GET
-    @Path("allgroups")
+    @Path("getAllCompany")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Groups> getAllGroups()
-    {
-        return cel.getAllGroups();
+    public Collection<Company> getAllCompany(){
+        return abl.getAllCompany();
     }
     
     @GET
-    @Path("getuserbygroup/{groupname}")
+    @Path("getCompanyByName/{cname}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Groups> getUsersByGroupName(@PathParam("groupname")String groupname)
-    {
-        return cel.getUsersByGroupName(groupname);
+    public Company getCompanyByName(@PathParam("cname") String cname){
+        return abl.getCompanyByName(cname);
     }
     
     @GET
-    @Path("getgroupbyuser/{username}")
+    @Path("getCompanyByName/{cid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Groups> getGroupNameByUser(@PathParam("username")String username)
-    {
-        return cel.getGroupNameByUser(username);
+    public Company getCompanyById(@PathParam("cid") Integer cid){
+        return abl.getCompanyById(cid);
     }
     
-    
-//    ====>Company
-    @POST
-    @Path("addcompany/{cname}/{website}/{city}")
-    public void addCompany(@PathParam("cname")String cname,@PathParam("website")String website,@PathParam("city")String city)
-    {
-        cel.addCompany(cname, website, city);
-    }
+//    ==> Package
     
     @POST
-    @Path("updatecompany/{cid}/{cname}/{website}/{city}")
-    public void updateCompany(@PathParam("cid")int cid,@PathParam("cname")String cname,@PathParam("website")String website,@PathParam("city")String city)
-    {
-        cel.updateCompany(cid, cname, website, city);
+    @Path("addPackage/{pname}/{destination}/{description}/{startdate}/{enddate}/{price}/{transportationtype}/{photos}/{cid}")
+    public boolean addPackage(@PathParam("pname") String pname,@PathParam("destination") String destination,@PathParam("description") String description,@PathParam("startdate") Date startdate,@PathParam("enddate") Date enddate,@PathParam("price") Integer price,@PathParam("transportationtype") String transportationtype,@PathParam("photos") String photos,@PathParam("cid") Integer cid){
+        return abl.addPackage(pname, destination, description, startdate, enddate, price, transportationtype, photos, cid);
+    }
+    
+    
+    @POST
+    @Path("updatePackage/{pid}/{pname}/{destination}/{description}/{startdate}/{enddate}/{price}/{transportationtype}/{photos}/{cid}")
+    public boolean updatePackage(@PathParam("pid") Integer pid,@PathParam("pname") String pname,@PathParam("destination") String destination,@PathParam("description") String description,@PathParam("startdate") Date startdate,@PathParam("enddate") Date enddate,@PathParam("price") Integer price,@PathParam("transportationtype") String transportationtype,@PathParam("photos") String photos,@PathParam("cid") Integer cid){
+        return abl.updatePackage(pid, pname, destination, description, startdate, enddate, price, transportationtype, photos, cid);
     }
     
     @DELETE
-    @Path("removecompany/{cid}")
-    public void removeCompany(@PathParam("cid")int cid)
-    {
-        cel.removeCompany(cid);
+    @Path("removePackage/{pid}")
+    public boolean removePackage(@PathParam("pid") Integer pid){
+        return abl.removePackage(pid);
     }
     
     @GET
-    @Path("allcompany")
+    @Path("getAllPackage")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Company> getAllCompany()
-    {
-        return cel.getAllCompany();
+    public Collection<Package> getAllPackage(){
+        return abl.getAllPackage();
     }
     
-//    ====>Package
-    @POST
-    @Path("addpackage/{pname}/{destination}/{description}/{startdate}/{enddate}/{price}/{transportationtype}/{photos}/{cid}")
-    public void addPackage(@PathParam("pname")String pname,@PathParam("destination")String destination,@PathParam("description")String description,@PathParam("startdate")Date startdate,@PathParam("enddate")Date enddate,@PathParam("price")int price,@PathParam("transportationtype")String transportationtype,@PathParam("photos")String photos,@PathParam("cid")int cid)
-    {
-        cel.addPackage(pname, destination, description, startdate, enddate, price, transportationtype, photos, cid);
+    @GET
+    @Path("getPackageByDestination/{destination}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Package> getPackageByDestination(@PathParam("destination") String destination){
+        return abl.getPackageByDestination(destination);
     }
     
+    @GET
+    @Path("getPackageByPrice/{price}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Package> getPackageByPrice(@PathParam("price") Integer price){
+        return abl.getPackageByPrice(price);
+    }
+    
+    @GET
+    @Path("getPackageByTransportationType/{transportationtype}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Package> getPackageByTransportationType(@PathParam("transportationtype") String transportationtype){
+        return abl.getPackageByTransportationType(transportationtype);
+    }
+    
+    @GET
+    @Path("getPackageByCompany/{cid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Package> getPackageByCompany(@PathParam("cid") Integer cid){
+        return abl.getPackageByCompany(cid);
+    }
+    
+    @GET
+    @Path("getPackageById/{pid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Package getPackageById(@PathParam("pid") Integer pid){
+        return abl.getPackageById(pid);
+    }
+    
+//    ==> Accommodation
+    
     @POST
-    @Path("updatepackage/{pid}/{pname}/{destination}/{description}/{startdate}/{enddate}/{price}/{transportationtype}/{photos}/{cid}")
-    public void updatePackage(@PathParam("pid")int pid,@PathParam("pname")String pname,@PathParam("destination")String destination,@PathParam("description")String description,@PathParam("startdate")Date startdate,@PathParam("enddate")Date enddate,@PathParam("price")int price,@PathParam("transportationtype")String transportationtype,@PathParam("photos")String photos,@PathParam("cid")int cid)
-    {
-        cel.updatePackage(pid, pname, destination, description, startdate, enddate, price, transportationtype, photos, cid);
+    @Path("addAccommodation/{name}/{country}/{state}/{city}/{address}/{description}/{roomNumber}/{type}/{capacity}/{price}")
+    public boolean addAccommodation(@PathParam("name") String name,@PathParam("country") String country,@PathParam("state") String state,@PathParam("city") String city,@PathParam("address") String address,@PathParam("description") String description,@PathParam("roomNumber") String roomNumber,@PathParam("type") String type,@PathParam("capacity") Integer capacity,@PathParam("price") Integer price){
+        return abl.addAccommodation(name, country, state, city, address, description, roomNumber, type, capacity, price);
+    }
+    
+    
+    @POST
+    @Path("updateAccommodation/{aid}/{name}/{country}/{state}/{city}/{address}/{description}/{roomNumber}/{type}/{capacity}/{price}")
+    public boolean updateAccommodation(@PathParam("aid") Integer aid,@PathParam("name") String name,@PathParam("country") String country,@PathParam("state") String state,@PathParam("city") String city,@PathParam("address") String address,@PathParam("description") String description,@PathParam("roomNumber") String roomNumber,@PathParam("type") String type,@PathParam("capacity") Integer capacity,@PathParam("price") Integer price){
+        return abl.updateAccommodation(aid, name, country, state, city, address, description, roomNumber, type, capacity, price);
     }
     
     @DELETE
-    @Path("removepackage/{pid}")
-    public void removePackage(@PathParam("pid")int pid)
-    {
-        cel.removePackage(pid);
+    @Path("removeAccommodation/{aid}")
+    public boolean removeAccommodation(@PathParam("aid") Integer aid){
+        return abl.removeAccommodation(aid);
     }
     
     @GET
-    @Path("allpackage")
+    @Path("getAllAccommodation")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<entity.Package> getAllPackage()
-    {
-        return cel.getAllPackage();
+    public Collection<Accommodation> getAllAccommodation(){
+        return abl.getAllAccommodation();
+    }
+    
+//    ==> Booking
+    
+    @GET
+    @Path("getAllBooking")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Booking> getAllBooking(){
+        return abl.getAllBooking();
+    }
+    
+//    ==> Payment
+
+    @GET
+    @Path("getAllPayments")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Payment> getAllPayments(){
+        return abl.getAllPayments();
+    }
+    
+//    ==> Feedback
+    
+    @GET
+    @Path("getAllFeedback")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Feedback> getAllFeedback(){
+        return abl.getAllFeedback();
+    }
+    
+//   ====>      ----: Users APIs :----
+    
+    @POST
+    @Path("updateProfile/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
+    public boolean updateProfile(@PathParam("username") String username,@PathParam("email") String email,@PathParam("password") String password,@PathParam("gender") String gender,@PathParam("photo") String photo,@PathParam("dob") Date dob,@PathParam("phoneno") BigInteger phoneno,@PathParam("address") String address){
+        return ubl.updateProfile(username, email, password, gender, photo, dob, phoneno, address);
+    }
+    
+    @DELETE
+    @Path("removeProfile/{username}")
+    public boolean removeProfile(@PathParam("username") String username){
+        return ubl.removeProfile(username);
     }
     
     @GET
-    @Path("getpackbydest/{destination}")
+    @Path("MyProfile/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<entity.Package> getPackageByDestination(@PathParam("destination")String destination)
-    {
-        return cel.getPackageByDestination(destination);
+    public Users MyProfile(@PathParam("username") String username){
+        return ubl.MyProfile(username);
+    }
+    
+    @POST
+    @Path("addBooking/{username}/{pid}/{bookingdate}/{traveldate}/{numbersoftravelers}/{totalamount}/{status}/{aid}")
+    public boolean addBooking(@PathParam("username") String username,@PathParam("pid") Integer pid,@PathParam("bookingdate") Date bookingdate,@PathParam("traveldate") Date traveldate,@PathParam("numbersoftravelers") Integer numbersoftravelers,@PathParam("totalamount") BigInteger totalamount,@PathParam("status") String status,@PathParam("aid") Integer aid){
+        return ubl.addBooking(username, pid, bookingdate, traveldate, numbersoftravelers, totalamount, status, aid);
+    }
+    
+    
+    @POST
+    @Path("updateBooking/{bid}/{username}/{pid}/{bookingdate}/{traveldate}/{numbersoftravelers}/{totalamount}/{status}/{aid}")
+    public boolean updateBooking(@PathParam("bid") Integer bid,@PathParam("username") String username,@PathParam("pid") Integer pid,@PathParam("bookingdate") Date bookingdate,@PathParam("traveldate") Date traveldate,@PathParam("numbersoftravelers") Integer numbersoftravelers,@PathParam("totalamount") BigInteger totalamount,@PathParam("status") String status,@PathParam("aid") Integer aid){
+        return ubl.updateBooking(bid, username, pid, bookingdate, traveldate, numbersoftravelers, totalamount, status, aid);
+    }
+    
+    @DELETE
+    @Path("removeBooking/{bid}")
+    public boolean removeBooking(@PathParam("bid") Integer bid){
+        return ubl.removeBooking(bid);
     }
     
     @GET
-    @Path("getpackbyprice/{price}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Collection<entity.Package> getPackageByPrice(@PathParam("price")int price)
-    {
-        return cel.getPackageByPrice(price);
+    @Path("getBookingByUser/{username}")
+    public Collection<Booking> getBookingByUser(@PathParam("username") String username){
+        return ubl.getBookingByUser(username);
     }
     
-    @GET
-    @Path("getpackbytrantype/{transportationtype}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Collection<entity.Package> getPackageByTransportationType(@PathParam("transportationtype")String transportationtype)
-    {
-        return cel.getPackageByTransportationType(transportationtype);
+    @POST
+    @Path("addFeedback/{username}/{bid}/{rating}/{review}/{date}")
+    public boolean addFeedback(String username,Integer bid,Integer rating,String review,Date date){
+        return ubl.addFeedback(username, bid, rating, review, date);
     }
     
-    @GET
-    @Path("getpackbycomp/{cid}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Collection<entity.Package> getPackageByCompany(@PathParam("cid")int cid)
-    {
-        return cel.getPackageByCompany(cid);
-    }
+    
+    
+    
     
 }
