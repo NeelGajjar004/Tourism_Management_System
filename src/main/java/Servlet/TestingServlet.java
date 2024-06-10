@@ -4,16 +4,17 @@
  */
 package Servlet;
 
-import ejb.crudejbLocal;
+import client.RestClient;
+import entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigInteger;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -22,7 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "TestingServlet", urlPatterns = {"/TestingServlet"})
 public class TestingServlet extends HttpServlet {
     
-    @EJB crudejbLocal cel;
+    @Inject RestClient rc;
+    Response rs;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +48,13 @@ public class TestingServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1> Testing Servlet </h1>");
-//            cel.addUsers("user1", "user1@gmail.com", "user123", "", "", null, null, "");
+            
+//            Users u = rc.Login("admin");
+            
+//            out.println(u.getUsername());
+//            out.println(u.getEmail());
+//            out.println(u.getPassword());
+//            out.println(u.getGender());
             
             out.println("</body>");
             out.println("</html>");

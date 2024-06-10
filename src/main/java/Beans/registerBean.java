@@ -43,7 +43,10 @@ public class registerBean {
 
     public String UserRegistration(){
         try{
-            rc.addUsers(username, email, password, null, null, null, null, null);
+            
+            
+            
+            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Register", "User Register Successfully...!"));
             return "/login.jsf";
 

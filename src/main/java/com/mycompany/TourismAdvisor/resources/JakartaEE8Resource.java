@@ -3,7 +3,6 @@ package com.mycompany.TourismAdvisor.resources;
 import ejb.AdminBeanLocal;
 import ejb.UserBeanLocal;
 import ejb.authBeanLocal;
-import ejb.crudejbLocal;
 import entity.Accommodation;
 import entity.Booking;
 import entity.Company;
@@ -31,7 +30,6 @@ import javax.ws.rs.core.MediaType;
 @Path("rest")
 public class JakartaEE8Resource {
     
-//    @EJB crudejbLocal cel;
     @EJB AdminBeanLocal abl;
     @EJB UserBeanLocal ubl;
     @EJB authBeanLocal aubl;
@@ -40,14 +38,14 @@ public class JakartaEE8Resource {
     
     @GET
     @Path("checkUserName/{username}")
-//    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public boolean checkUserName(@PathParam("username") String username){
         return aubl.checkUserName(username);
     }
     
     @GET
     @Path("checkUserEmail/{email}")
-//    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public boolean checkUserEmail(@PathParam("email") String email){
         return aubl.checkUserEmail(email);
     }
@@ -121,7 +119,7 @@ public class JakartaEE8Resource {
     
     @POST
     @Path("updateGroups/{groupid}/{groupname}/{username}")
-    public boolean updateGroups(Integer groupid,String groupname,String username){
+    public boolean updateGroups(@PathParam("groupid") Integer groupid,@PathParam("groupname") String groupname,@PathParam("username") String username){
         return abl.updateGroups(groupid, groupname, username);
     }
     
@@ -196,7 +194,7 @@ public class JakartaEE8Resource {
     }
     
     @GET
-    @Path("getCompanyByName/{cid}")
+    @Path("getCompanyById/{cid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Company getCompanyById(@PathParam("cid") Integer cid){
         return abl.getCompanyById(cid);
@@ -362,18 +360,14 @@ public class JakartaEE8Resource {
     
     @GET
     @Path("getBookingByUser/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Collection<Booking> getBookingByUser(@PathParam("username") String username){
         return ubl.getBookingByUser(username);
     }
     
     @POST
     @Path("addFeedback/{username}/{bid}/{rating}/{review}/{date}")
-    public boolean addFeedback(String username,Integer bid,Integer rating,String review,Date date){
+    public boolean addFeedback(@PathParam("username") String username,@PathParam("bid")Integer bid,@PathParam("rating") Integer rating,@PathParam("review") String review,@PathParam("date") Date date){
         return ubl.addFeedback(username, bid, rating, review, date);
     }
-    
-    
-    
-    
-    
 }
