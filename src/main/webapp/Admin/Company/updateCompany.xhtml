@@ -118,9 +118,6 @@
                                 <p:toolbarGroup>
                                     <span style="font-weight: bold"><h3>Update Company Details</h3></span>
                                 </p:toolbarGroup>
-<!--                                <p:toolbarGroup align="right">
-                                    <p:commandButton value="Company List" action="#{companyBean.redirectToDisplayCompany()}" icon="pi pi-list"/>
-                                </p:toolbarGroup>-->
                             </p:toolbar>
                         </h:form>
                         
@@ -171,6 +168,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <h:commandButton id="update" class="btn btn-primary fs-5 float-end mb-4" action="#{companyBean.updateCompany()}" value="Update"/>
+                                                <h:commandButton value="Cancel" class="btn btn-danger fs-5 float-end mb-4" style="margin-right: 1%" action="#{companyBean.redirectToDisplayCompany()}"/>
                                             </div>
                                         </h:form>
                                     </div>
@@ -203,5 +201,20 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+        
+        <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+        
     </h:body>
 </html>

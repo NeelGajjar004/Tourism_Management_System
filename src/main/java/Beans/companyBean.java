@@ -32,10 +32,10 @@ public class companyBean implements Serializable{
     Response rs;
 
     int cid;
-    String cname = "";
-    String website = "";
-    String city = "";
-    String ErrorMsg = "";
+    String cname;
+    String website;
+    String city;
+    String ErrorMsg;
     
     Company selectedcompany;
     Collection<Company> companies;
