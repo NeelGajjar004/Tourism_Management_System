@@ -5,6 +5,7 @@
 package Beans;
 
 import client.RestClient;
+import ejb.AdminBeanLocal;
 import entity.Package;
 import entity.Company;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -52,6 +54,7 @@ public class packageBean implements Serializable {
     Company selectedcompany;
     Collection<Company> companies;
     GenericType<Collection<Company>> gcompanies;
+    @EJB AdminBeanLocal abl;
     
     public packageBean() {
         rc = new RestClient();
@@ -210,7 +213,8 @@ public class packageBean implements Serializable {
         if(file != null){
             try(InputStream input = file.getInputStream()){
                 fileName = file.getFileName();
-                OutputStream output = new FileOutputStream("D:/Collega Work/MScIT_Sem-8/Project/TourismAdvisor/src/main/webapp/Admin/public/uploads" + fileName);
+//                OutputStream output = new FileOutputStream("D:/Collega Work/MScIT_Sem-8/Project/TourismAdvisor/src/main/webapp/Admin/public/uploads" + fileName);
+                OutputStream output = new FileOutputStream("D:/Collega Work/MScIT_Sem-8/Project/TourismAdvisor/src/main/webapp/public/uploads/" + fileName);
                 try {
                     byte[] buffer = new byte[1024];
                     int bytesRead;
@@ -231,19 +235,22 @@ public class packageBean implements Serializable {
     public void insertPackage(){
         try{
             photos = uploadfile();
-            boolean InPackage = rc.addPackage(boolean.class, pname, destination, description, String.valueOf(startdate), String.valueOf(enddate), String.valueOf(price), transportationtype, photos, String.valueOf(cid));
+            boolean InPackage = abl.addPackage(pname, destination, description, startdate,enddate, price,transportationtype, photos, cid);
             if(InPackage){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Package/displayPackage.jsf");
             }else{
                 ErrorMsg = "[In-Pack] Something Went Wrong..!";
             }
         }catch(Exception e){
+            System.out.println("Error Occured :=== " + e.getMessage());
             e.printStackTrace();
         }
     }
     
     public void updatePackage(){
         try{
+            boolean UpPackage;
+            
             pid = selectedpackage.getPid();
             pname = selectedpackage.getPname();
             destination = selectedpackage.getDestination();
@@ -254,8 +261,15 @@ public class packageBean implements Serializable {
             transportationtype = selectedpackage.getTransportationtype();
             photos = selectedpackage.getPhotos();
             cid = selectedpackage.getCid().getCid();
-//            photos = uploadfile();
-            boolean UpPackage = rc.updatePackage(boolean.class, String.valueOf(pid), pname, destination, description, String.valueOf(startdate), String.valueOf(enddate), String.valueOf(price), transportationtype, photos, String.valueOf(cid));
+            
+            String photo = uploadfile();
+            
+            if(photo.isEmpty()){
+                UpPackage = abl.updatePackage(pid, pname, destination, description, startdate,enddate, price, transportationtype, photos, cid);
+            }else{
+                UpPackage = abl.updatePackage(pid, pname, destination, description, startdate,enddate, price, transportationtype, photo, cid);
+            }
+            
             if(UpPackage){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Package/displayPackage.jsf");
             }else{

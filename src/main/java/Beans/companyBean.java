@@ -19,6 +19,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
+import record.KeepRecord;
 
 /**
  *
@@ -36,6 +37,7 @@ public class companyBean implements Serializable{
     String website;
     String city;
     String ErrorMsg;
+    String username;
     
     Company selectedcompany;
     Collection<Company> companies;
@@ -119,6 +121,9 @@ public class companyBean implements Serializable{
             boolean InCompany = rc.addCompany(Boolean.class, cname, website, city);
             if(InCompany){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Company/displayCompany.jsf");
+                cname="";
+                website="";
+                city="";
             }else{
                 ErrorMsg = "[In-Com] Something Went Wrong..!";
             }
@@ -136,6 +141,9 @@ public class companyBean implements Serializable{
             boolean UpCompany = rc.updateCompany(boolean.class, String.valueOf(cid),cname,website,city);
             if(UpCompany){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Company/displayCompany.jsf");
+                cname="";
+                website="";
+                city="";
             }else{
                 ErrorMsg = "[Up-Com] Something Went Wrong..!";
             }

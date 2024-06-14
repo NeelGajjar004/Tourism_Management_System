@@ -54,23 +54,23 @@
                                 <h3>Register</h3>
                             </div>
                             <h:form>
-                                <p:growl id="message" showDetail="true"/>
+                                <p:growl id="message" showSummary="true" showDetail="true"/>
                                 <div class="ui-inputgroup mb-3">
                                     <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
                                     <p:inputText id="username" value="#{registerBean.username}" class="w-100" placeholder="Username" required="true" requiredMessage="Username Can Not Blank"/>
-                                    <p:message for="username"/>
+                                    <!--<p:message for="username"/>-->
                                 </div>
                                 <div class="ui-inputgroup mb-3">
                                     <div class="ui-inputgroup-addon"><i class="pi pi-google"></i></div>
                                     <p:inputText id="email" value="#{registerBean.email}" class="w-100" placeholder="Email Address" required="true" requiredMessage="Email Address Can Not Blank"/>
-                                    <p:message for="email"/>
+                                    <!--<p:message for="email"/>-->
                                 </div>
                                 <div class="ui-inputgroup mb-3">
                                     <div class="ui-inputgroup-addon"><i class="pi pi-ellipsis-h"></i></div>
                                     <p:password id="password" value="#{registerBean.password}" class="w-100" placeholder="Password" required="true" requiredMessage="Password Can Not Blank"/>
-                                    <p:message for="password"/>
+                                    <!--<p:message for="password"/>-->
                                 </div>
-                                <h:commandButton value="Register" action="#{registerBean.userRegistration()}" class="py-2 w-100 mb-4" style="font-weight: bold;background-color: #13357B; color: white"/>
+                                <h:commandButton id="Register" value="Register" action="#{registerBean.addUser()}" class="py-2 w-100 mb-4" style="font-weight: bold;background-color: #13357B; color: white"/>
                             </h:form>
                             <p class="text-center mb-0">Already have an Account? 
                                 <p:link value="Login" style="color: #13357B" outcome="login.jsf"/>

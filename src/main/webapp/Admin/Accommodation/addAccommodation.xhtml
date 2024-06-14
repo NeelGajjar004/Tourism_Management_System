@@ -1,11 +1,280 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <meta charset="utf-8"/>
+        <title>Tourism Advisor - Add New Accommodation</title>
+        <!-- Favicon -->
+        <!--<link href="../img/favicon.ico" rel="icon"/>-->
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <!--<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet"/>-->
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"/>
+
+        <!-- Libraries Stylesheet -->
+        <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"/>
+        <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Template Stylesheet -->
+        <link href="../css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="container-fluid position-relative bg-white d-flex p-0">
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <h:link outcome="/index.jsf" class="navbar-brand mx-4 mb-3">
+                    <h4 class="text-primary"><i class="fa fa-map-marker-alt me-2"></i>Tourism Advisor</h4>
+                </h:link>
+                
+                <div class="navbar-nav w-100">
+                    <h:link outcome="/Admin/adminDashboard.jsf" class="h4 fw-bold nav-item nav-link" value="Dashboard"/>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Company</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="/Admin/Company/addCompany.jsf" class="h5 dropdown-item" value="Add Company"/>
+                            <h:link outcome="/Admin/Company/displayCompany.jsf" class="h5 dropdown-item" value="Company List"/>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Packages</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="/Admin/Package/addPackage.jsf" class="h5 dropdown-item active" value="Add Package"/>
+                            <h:link outcome="/Admin/Package/displayPackage.jsf" class="h5 dropdown-item" value="Package List"/>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split active" data-bs-toggle="dropdown">Accommodation</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="addAccommodation.jsf" class="h5 dropdown-item active" value="Add Accommodation"/>
+                            <h:link outcome="displayAccommodation.jsf" class="h5 dropdown-item" value="Accommodation List"/>
+                        </div>
+                    </div>
+                    <h:link outcome="/Admin/Booking/displayBooking.jsf" class="h4 fw-bold nav-item nav-link" value="Booking List"/>
+                    <h:link outcome="/Admin/Payment/displayPayment.jsf" class="h4 fw-bold nav-item nav-link" value="Payment List"/>
+                    <h:link outcome="/Admin/Feedback/displayFeedback.jsf" class="h4 fw-bold nav-item nav-link" value="Feedback List"/>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <h:link outcome="/index.jsf" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-map-marker-alt"></i></h2>
+                </h:link>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <h:link outcome="/index.jsf" class="d-none d-md-flex ms-4">
+                    <h3 class="text-primary border-0"><i class="fa fa-map-marker-alt me-2"></i>Tourism Advisor</h3>
+                </h:link>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <p:graphicImage class="rounded me-lg-2" url="../img/UserAvatar1.jpg"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                            <span class=" h5 d-none d-lg-inline-flex">Admin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <p:button value="My Profile" outcome="/index.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
+                            <p:button value="Logout" outcome="/logout.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+
+            <!-- Blank Start -->
+            <div class="container-fluid pt-4 px-4">
+                <!--<div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">-->
+                <div class="h-auto bg-light rounded">
+                    <!--<div class="card">-->
+                        <h:form>
+                            <!--<p:growl id="message" showDetail="true"/>-->
+                            <p:toolbar>
+                                <p:toolbarGroup>
+                                    <span style="font-weight: bold"><h3>Add New Package</h3></span>
+                                </p:toolbarGroup>
+                                <p:toolbarGroup align="right">
+                                    <p:commandButton value="Accommodation List" action="#{accommodationBean.redirectToDisplayAccommodation()}" icon="pi pi-list"/>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </h:form>
+                        
+                         <div class="container-fluid p-4 mb-4">
+                            <div class="row g-4">
+                                <div class="col-sm-12">
+                                    <div class="bg-white rounded w-100 h-100 p-4">
+                                        <h:form>
+                                            
+                                            <div class="row mt-1 mb-2">
+                                                <label for="name" class="col-sm-2 form-label h5">Name : </label>
+                                                <!--<div class="col-sm-8">-->
+                                                <h:message class="col-sm-10" for="name" style="color: red"/>
+                                                <!--</div>-->
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.name}" class="form-control" id="name" required="true" requiredMessage="* Accommodation Name Can not be Blank..!"/>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="country" class="col-sm-2 form-label h5">Country : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="country" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.country}" class="form-control" id="country" required="true" requiredMessage="* Country Can not be Blank..!"/>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="state" class="col-sm-2 form-label h5">State : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="state" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.state}" class="form-control" id="state" required="true" requiredMessage="* State Can not be Blank..!"/>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="city" class="col-sm-2 form-label h5">City : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="city" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.city}" class="form-control" id="city" required="true" requiredMessage="* City Can not be Blank..!"/>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="address" class="col-sm-2 form-label h5">Address : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="address" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.address}" class="form-control" id="address" required="true" requiredMessage="* Address Can not be Blank..!"/>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="description" class="col-sm-2 form-label h5">Description : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="description" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.description}" class="form-control" id="description" required="true" requiredMessage="* Description Can not be Blank..!"/>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <label for="roomNumber" class="col-sm-2 form-label h5">Room Number : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="roomNumber" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.roomNumber}" class="form-control" id="roomNumber" required="true" requiredMessage="* Room Number Can not be Blank..!"/>
+                                            </div>
+                                            
+                                            <div class="row mb-4">
+                                                <label for="type" class="col-sm-3 form-label h5"> Room Type : </label>
+                                                <div class="col-sm-9">
+                                                    <p:selectOneMenu id="type" class="w-25 h3" value="#{accommodationBean.type}">
+                                                        <f:selectItem itemLabel="AC" itemValue="AC"/>
+                                                        <f:selectItem itemLabel="Without AC" itemValue="Without AC"/>
+                                                    </p:selectOneMenu>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="capacity" class="col-sm-2 form-label h5">Capacity : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="capacity" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.capacity}"  class="form-control" id="capacity"  required="true" requiredMessage="* Capacity Can not be Blank..!">
+                                                    <f:convertNumber integerOnly="true"/>
+                                                    <!--<f:validateLength minimum="1" />-->
+                                                </h:inputText>
+                                            </div>
+                                            
+                                            <div class="row mb-2">
+                                                <label for="price" class="col-sm-2 form-label h5">Price : </label>
+                                                <div class="col-sm-10">
+                                                    <h:message for="price" style="color: red"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h:inputText value="#{accommodationBean.price}"  class="form-control" id="price"  required="true" requiredMessage="* Price Can not be Blank..!">
+                                                    <f:convertNumber integerOnly="true"/>
+                                                </h:inputText>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <h:commandButton id="save" class="btn btn-primary fs-5 float-end mb-4" action="#{accommodationBean.insertAccommodation()}" value="Save"/>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    <!--</div>-->
+                </div>
+            </div>
+            <!-- Blank End -->
+
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 text-center text-sm-center" style="font-weight: bold;color: #13357B">
+                            <i class="fas fa-copyright me-2"/><p:link outcome="/index.jsf" style="font-weight: bold;color: #13357B" value="Tourism Advisor"/>, All Right Reserved. 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+            <!-- JavaScript Libraries -->
+            <!--<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="../lib/chart/chart.min.js"></script>
+            <script src="../lib/easing/easing.min.js"></script>
+            <script src="../lib/waypoints/waypoints.min.js"></script>
+            <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="../lib/tempusdominus/js/moment.min.js"></script>
+            <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+            <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+            <!-- Template Javascript -->
+            <script src="../js/main.js"></script>
     </h:body>
 </html>

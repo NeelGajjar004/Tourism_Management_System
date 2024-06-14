@@ -103,7 +103,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <p:graphicImage class="rounded-circle me-lg-2" url="../img/user.jpg"  alt="" style="width: 40px; height: 40px;"/>
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none d-lg-inline-flex">Admin</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <p:button value="My Profile" outcome="/index.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
@@ -152,7 +152,7 @@
                                         <f:setPropertyActionListener  value="#{com}" target="#{companyBean.selectedcompany}"/>
                                     </p:commandButton>
                                     
-                                    <p:commandButton action="#{companyBean.deleteCompany()}" styleClass="rounded-button ui-button-danger" icon="pi pi-trash">
+                                    <p:commandButton action="#{companyBean.deleteCompany()}" onclick="return confirm('Are you sure want to Delete?')" styleClass="rounded-button ui-button-danger" icon="pi pi-trash">
                                         <f:setPropertyActionListener value="#{com.cid}" target="#{companyBean.cid}"/>
                                     </p:commandButton>
                                 </p:column> 

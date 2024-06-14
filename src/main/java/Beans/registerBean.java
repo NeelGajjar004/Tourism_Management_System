@@ -5,9 +5,11 @@
 package Beans;
 
 import client.RestClient;
+import ejb.authBeanLocal;
 import entity.Users;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -29,10 +31,12 @@ public class registerBean {
     String username;
     String email;
     String password;
+    String errorMsg;
     
     Users selectUser;
     Collection<Users> users;
     GenericType<Collection<Users>> gusers;
+    @EJB authBeanLocal aubl;
     
     
     public registerBean() {
@@ -41,21 +45,6 @@ public class registerBean {
         gusers = new GenericType<Collection<Users>>(){};
     }
 
-    public String UserRegistration(){
-        try{
-            
-            
-            
-            
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Register", "User Register Successfully...!"));
-            return "/login.jsf";
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return "/register.jsf";
-    }
-    
     public String getUsername() {
         return username;
     }
@@ -80,6 +69,14 @@ public class registerBean {
         this.password = password;
     }
 
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
     public Users getSelectUser() {
         return selectUser;
     }
@@ -95,7 +92,39 @@ public class registerBean {
     public void setUsers(Collection<Users> users) {
         this.users = users;
     }
-
     
+    public void clearFields(){
+        username = "";
+        email = "";
+        password = "";
+    }
+
+    public void addUser(){
+        try{
+            boolean checkUserName = aubl.checkUserName(username);
+            boolean checkUserEmail = aubl.checkUserEmail(email);
+            if(checkUserName){
+                errorMsg = "User Name Already Exists..!";
+                FacesContext.getCurrentInstance().addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "User Name Already Exists..!"));
+                clearFields();
+            }else if(checkUserEmail){
+                    errorMsg = "email address has only one registered user associated..!";
+                FacesContext.getCurrentInstance().addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "email address has only one registered user associated..!"));
+                clearFields();
+            }else{
+                errorMsg="";
+                boolean regis = aubl.Register(username, email, password, null, null, null, null, null);
+                if(regis){
+                    aubl.addGroups("User", username);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Register", "User Register Successfully...!"));
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.jsf");
+                }
+                clearFields();
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     
 }

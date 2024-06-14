@@ -55,100 +55,100 @@ public class SecureAuthentication implements HttpAuthenticationMechanism {
     @Override
     public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext ctx) throws AuthenticationException{
         
-//        try{
-////            request.setCharacterEncoding("UTF-8");
-//            if(request.getRequestURI().contains("logout")){
-//                request.logout();
-//                KeepRecord.reset();
-//                request.getSession().removeAttribute("TOKEN");
-//                clearTokenFromCookie(request, response);
-//                System.out.println("Logout Successfully");
-//                response.sendRedirect("/TourismAdvisor/login.jsf");
-//                return ctx.doNothing();
-//            }
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//        
-//        if(KeepRecord.getToken() != null){
-//            token = KeepRecord.getToken();
-//        }
-//        
-////        String token = extractToken(ctx);
-//
-//        try{
+        try{
 //            request.setCharacterEncoding("UTF-8");
-////            System.out.println("==> Username := " + request.getParameter("username"));
-//
-//            
-//            
-//            if(token == null && request.getParameter("username") != null){
-//                
-//                String username = request.getParameter("username");
-//                String password = request.getParameter("password");
-//                
-//                
-//                
-//                System.out.println("=> In Auth - ");
-//                
-//                Credential credential = new UsernamePasswordCredential(username, new Password(password));
-//                result = handler.validate(credential);
-//                
+            if(request.getRequestURI().contains("logout")){
+                request.logout();
+                KeepRecord.reset();
+                request.getSession().removeAttribute("TOKEN");
+                clearTokenFromCookie(request, response);
+                System.out.println("Logout Successfully");
+                response.sendRedirect("/TourismAdvisor/login.jsf");
+                return ctx.doNothing();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        if(KeepRecord.getToken() != null){
+            token = KeepRecord.getToken();
+        }
+        
+//        String token = extractToken(ctx);
+
+        try{
+            request.setCharacterEncoding("UTF-8");
+//            System.out.println("==> Username := " + request.getParameter("username"));
+
+            
+            
+            if(token == null && request.getParameter("username") != null){
+                
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                
+                
+                
+                System.out.println("=> In Auth - ");
+                
+                Credential credential = new UsernamePasswordCredential(username, new Password(password));
+                result = handler.validate(credential);
+                
 //                    KeepRecord.setErrorStatus(null);
-//                if(result.getStatus() == Status.VALID){
+                if(result.getStatus() == Status.VALID){
 //                    KeepRecord.setErrorStatus(null);
-//                    AuthenticationStatus status = createToken(result,ctx);
-//
-//                    status = ctx.notifyContainerAboutLogin(result);
-//
-//                    KeepRecord.setUsername(username);
-//                    KeepRecord.setPassword(password);
-//                    KeepRecord.setPrincipal(result.getCallerPrincipal());
-//                    KeepRecord.setRoles(result.getCallerGroups());
-//                    KeepRecord.setCredential(credential);
-//                    
-//                    if(result.getCallerGroups().contains("Admin")){
-//                        response.sendRedirect("/TourismAdvisor/Admin/adminDashboard.jsf");
-//                    }
-//                    if(result.getCallerGroups().contains("User")){
-//                        response.sendRedirect("/TourismAdvisor/Users/home.jsf");
-//                    }
-//                    return status;
-//                }else{
-//                    if(request.getParameter("username").isEmpty() || request.getParameter("password").isEmpty()){
-//                        KeepRecord.setErrorStatus("All Fields are Required..!");
-//                    }else{
-//                        KeepRecord.setErrorStatus("Either Username or Password is Wrong..!");
-//                    }
-//                    response.sendRedirect("/TourismAdvisor/login.jsf");
-//                    return ctx.doNothing();
-//                }
-//            }
-//             
-////            if(request.getSession().getAttribute("TOKEN") != null && ((request.getRequestURI().contains("login")) || request.getRequestURI().equals("/TA/"))){
-//            if(request.getSession().getAttribute("TOKEN") != null && request.getRequestURI().contains("login")){
-//                System.out.println(result.getCallerGroups().contains("Admin") + "    :   " + result.getCallerGroups().toString());
-//                if(result.getCallerGroups().contains("Admin")){
-//                    response.sendRedirect("/TourismAdvisor/Admin/adminDashboard.jsf");
-//                }
-//                if(result.getCallerGroups().contains("User")){
-//                    response.sendRedirect("/TourismAdvisor/Users/home.jsf");
-//                }
-//            }
-//        }catch(Exception e){
-//            System.out.println("Error occured :-  " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        
-//        if(KeepRecord.getToken() != null){
-//                    ctx.notifyContainerAboutLogin(KeepRecord.getPrincipal(),KeepRecord.getRoles());
-//            }
-//        
-//        if(token != null){
-//            return validateToken(token,ctx);
-//        }else if(ctx.isProtected()){
-//            return ctx.responseUnauthorized();
-//        }
+                    AuthenticationStatus status = createToken(result,ctx);
+
+                    status = ctx.notifyContainerAboutLogin(result);
+
+                    KeepRecord.setUsername(username);
+                    KeepRecord.setPassword(password);
+                    KeepRecord.setPrincipal(result.getCallerPrincipal());
+                    KeepRecord.setRoles(result.getCallerGroups());
+                    KeepRecord.setCredential(credential);
+                    
+                    if(result.getCallerGroups().contains("Admin")){
+                        response.sendRedirect("/TourismAdvisor/Admin/adminDashboard.jsf");
+                    }
+                    if(result.getCallerGroups().contains("User")){
+                        response.sendRedirect("/TourismAdvisor/Users/home.jsf");
+                    }
+                    return status;
+                }else{
+                    if(request.getParameter("username").isEmpty() || request.getParameter("password").isEmpty()){
+                        KeepRecord.setErrorStatus("All Fields are Required..!");
+                    }else{
+                        KeepRecord.setErrorStatus("Either Username or Password is Wrong..!");
+                    }
+                    response.sendRedirect("/TourismAdvisor/login.jsf");
+                    return ctx.doNothing();
+                }
+            }
+             
+//            if(request.getSession().getAttribute("TOKEN") != null && ((request.getRequestURI().contains("login")) || request.getRequestURI().equals("/TA/"))){
+            if(request.getSession().getAttribute("TOKEN") != null && request.getRequestURI().contains("login")){
+                System.out.println(result.getCallerGroups().contains("Admin") + "    :   " + result.getCallerGroups().toString());
+                if(result.getCallerGroups().contains("Admin")){
+                    response.sendRedirect("/TourismAdvisor/Admin/adminDashboard.jsf");
+                }
+                if(result.getCallerGroups().contains("User")){
+                    response.sendRedirect("/TourismAdvisor/Users/home.jsf");
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Error occured :-  " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        if(KeepRecord.getToken() != null){
+                    ctx.notifyContainerAboutLogin(KeepRecord.getPrincipal(),KeepRecord.getRoles());
+            }
+        
+        if(token != null){
+            return validateToken(token,ctx);
+        }else if(ctx.isProtected()){
+            return ctx.responseUnauthorized();
+        }
       return ctx.doNothing();
     }
     

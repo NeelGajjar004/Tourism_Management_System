@@ -152,6 +152,18 @@ public class accommodationBean implements Serializable {
     public void setSelectedAccommodation(Accommodation selectedAccommodation) {
         this.selectedAccommodation = selectedAccommodation;
     }
+    
+    private void clearFields(){
+        name="";
+        country = "";
+        state = "";
+        city = "";
+        address = "";
+        description = "";
+        roomNumber = "";
+        capacity = 0;
+        price = 0;
+    }
 
     public Collection<Accommodation> getAccommodations() {
         try{
@@ -174,6 +186,7 @@ public class accommodationBean implements Serializable {
             boolean InAccommodation = rc.addAccommodation(boolean.class, name, country, state, city, address, description, roomNumber, type, String.valueOf(capacity), String.valueOf(price));
             if(InAccommodation){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Accommodation/displayAccommodation.jsf");
+            clearFields();
             }else{
                 ErrorMsg = "[In-Acco] Something Went Wrong..!";
             }
@@ -198,6 +211,7 @@ public class accommodationBean implements Serializable {
             boolean UpAccommodation = rc.updateAccommodation(boolean.class, String.valueOf(aid), name, country, state, city, address, description, roomNumber, type,String.valueOf(capacity), String.valueOf(price));
             if(UpAccommodation){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Accommodation/displayAccommodation.jsf");
+                clearFields();
             }else{
                 ErrorMsg = "[Up-Acco] Something Went Wrong..!";
             }

@@ -61,7 +61,6 @@ public class authBean implements authBeanLocal {
             Users u = new Users();
             u.setUsername(username);
             u.setEmail(email);
-    //        u.setPassword(HashPassword(password));
             u.setPassword(ph.generate(password.toCharArray()));
             u.setGender(gender);
             u.setPhoto(photo);
