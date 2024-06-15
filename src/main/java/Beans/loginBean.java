@@ -11,10 +11,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import org.primefaces.model.file.UploadedFile;
 import record.KeepRecord;
@@ -40,21 +43,19 @@ public class loginBean implements Serializable{
     String address;
     UploadedFile file;
     
+    Users userInfo;
+    
     Users selectedUser;
-    Users userinfo;
+    Collection<Users> users;
+    GenericType<Collection<Users>> gusers;
     
     private String errorStatus = "";
     
     public loginBean() {
         errorStatus = KeepRecord.getErrorStatus();
-    }
-
-    public String getErrorStatus() {
-        return errorStatus;
-    }
-
-    public void setErrorStatus(String errorStatus) {
-        this.errorStatus = errorStatus;
+        rc = new RestClient();
+        users = new ArrayList<>();
+        gusers = new GenericType<Collection<Users>>(){};
     }
 
     public String getUsername() {
@@ -65,19 +66,78 @@ public class loginBean implements Serializable{
         this.username = username;
     }
 
-    public Users getUserinfo() {
-        try{
-            return rc.Login(Users.class, KeepRecord.getUsername());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserinfo(Users userinfo) {
-        this.userinfo = userinfo;
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public BigInteger getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(BigInteger phoneno) {
+        this.phoneno = phoneno;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public Users getUserInfo() {
+        return rc.Login(Users.class, KeepRecord.getUsername());
+    }
+
+    public void setUserInfo(Users userInfo) {
+        this.userInfo = userInfo;
+    }
+
     public Users getSelectedUser() {
         return selectedUser;
     }
@@ -85,7 +145,23 @@ public class loginBean implements Serializable{
     public void setSelectedUser(Users selectedUser) {
         this.selectedUser = selectedUser;
     }
-    
+
+    public Collection<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<Users> users) {
+        this.users = users;
+    }
+
+    public String getErrorStatus() {
+        return errorStatus;
+    }
+
+    public void setErrorStatus(String errorStatus) {
+        this.errorStatus = errorStatus;
+    }
+
     private String uploadfile(){
         String fileName = "";
         if(file != null){
@@ -108,8 +184,6 @@ public class loginBean implements Serializable{
         }
         return fileName;
     }
-    
-    
     
     public void updateProfile(){
         try{

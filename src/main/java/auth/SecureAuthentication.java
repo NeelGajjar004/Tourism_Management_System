@@ -213,7 +213,8 @@ public class SecureAuthentication implements HttpAuthenticationMechanism {
                 if(c.getName().equals("TOKEN")){
                     c.setValue(null);
                     c.setMaxAge(0);
-                    c.setPath("/TA");
+//                    c.setPath("/TA");
+                    c.setPath("/");
                     response.addCookie(c);
                 }
             }
