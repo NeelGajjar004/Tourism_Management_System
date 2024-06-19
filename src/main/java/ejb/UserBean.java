@@ -24,7 +24,6 @@ import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 @Stateless
 public class UserBean implements UserBeanLocal {
     
-    Pbkdf2PasswordHashImpl hp = new Pbkdf2PasswordHashImpl();
     @PersistenceContext(unitName = "tmspu")
     EntityManager em;
     
@@ -34,8 +33,7 @@ public class UserBean implements UserBeanLocal {
         try{
             Users u = (Users) em.find(Users.class, username);
             u.setEmail(email);
-    //        u.setPassword(HashPassword(password));
-            u.setPassword(hp.generate(password.toCharArray()));
+            u.setPassword(password);
             u.setGender(gender);
             u.setPhoto(photo);
             u.setDob(dob);

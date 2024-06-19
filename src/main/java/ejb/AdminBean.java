@@ -44,7 +44,6 @@ public class AdminBean implements AdminBeanLocal {
             Users u = new Users();
             u.setUsername(username);
             u.setEmail(email);
-    //        u.setPassword(HashPassword(password));
             u.setPassword(hp.generate(password.toCharArray()));
             u.setGender(gender);
             u.setPhoto(photo);
@@ -65,8 +64,7 @@ public class AdminBean implements AdminBeanLocal {
         try{
             Users u = (Users) em.find(Users.class, username);
             u.setEmail(email);
-    //        u.setPassword(HashPassword(password));
-            u.setPassword(hp.generate(password.toCharArray()));
+            u.setPassword(password);
             u.setGender(gender);
             u.setPhoto(photo);
             u.setDob(dob);

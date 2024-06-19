@@ -47,7 +47,6 @@ public class packageBean implements Serializable {
     String ErrorMsg;
     UploadedFile file;
 
-    
     Package selectedpackage;
     Collection<Package> packages;
     GenericType<Collection<Package>> gpackages;
@@ -62,6 +61,18 @@ public class packageBean implements Serializable {
         gpackages = new GenericType<Collection<Package>>(){};
         companies = new ArrayList<>();
         gcompanies = new GenericType<Collection<Company>>(){};
+    }
+    
+    public void ClearFields(){
+        pname = "";
+        destination = "";
+        description = "";
+        startdate = null;
+        enddate = null;
+        price = 0;
+        cid = 0;
+        transportationtype = "";
+        photos = "";
     }
 
     public int getPid() {
@@ -238,6 +249,7 @@ public class packageBean implements Serializable {
             boolean InPackage = abl.addPackage(pname, destination, description, startdate,enddate, price,transportationtype, photos, cid);
             if(InPackage){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Package/displayPackage.jsf");
+                ClearFields();
             }else{
                 ErrorMsg = "[In-Pack] Something Went Wrong..!";
             }
@@ -272,6 +284,7 @@ public class packageBean implements Serializable {
             
             if(UpPackage){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/Package/displayPackage.jsf");
+                ClearFields();
             }else{
                 ErrorMsg = "[Up-Pack] Something Went Wrong..!";
             }

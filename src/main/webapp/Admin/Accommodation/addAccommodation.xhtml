@@ -87,8 +87,8 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <p:graphicImage class="rounded me-lg-2" url="../img/UserAvatar1.jpg"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
-                            <span class=" h5 d-none d-lg-inline-flex">#{loginBean.user}</span>
+                            <p:graphicImage class="rounded me-lg-2" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                            <span class=" h5 d-none d-lg-inline-flex">#{loginBean.userInfo.username}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <p:button value="My Profile" outcome="/Admin/profilePage.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
@@ -183,7 +183,7 @@
                                                 <h:inputText value="#{accommodationBean.description}" class="form-control" id="description" required="true" requiredMessage="* Description Can not be Blank..!"/>
                                             </div>
 
-                                            <div class="row mb-2">
+<!--                                            <div class="row mb-2">
                                                 <label for="roomNumber" class="col-sm-2 form-label h5">Room Number : </label>
                                                 <div class="col-sm-10">
                                                     <h:message for="roomNumber" style="color: red"/>
@@ -191,9 +191,9 @@
                                             </div>
                                             <div class="mb-4">
                                                 <h:inputText value="#{accommodationBean.roomNumber}" class="form-control" id="roomNumber" required="true" requiredMessage="* Room Number Can not be Blank..!"/>
-                                            </div>
+                                            </div>-->
                                             
-                                            <div class="row mb-4">
+<!--                                            <div class="row mb-4">
                                                 <label for="type" class="col-sm-3 form-label h5"> Room Type : </label>
                                                 <div class="col-sm-9">
                                                     <p:selectOneMenu id="type" class="w-25 h3" value="#{accommodationBean.type}">
@@ -201,9 +201,9 @@
                                                         <f:selectItem itemLabel="Without AC" itemValue="Without AC"/>
                                                     </p:selectOneMenu>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             
-                                            <div class="row mb-2">
+<!--                                            <div class="row mb-2">
                                                 <label for="capacity" class="col-sm-2 form-label h5">Capacity : </label>
                                                 <div class="col-sm-10">
                                                     <h:message for="capacity" style="color: red"/>
@@ -212,11 +212,44 @@
                                             <div class="mb-4">
                                                 <h:inputText value="#{accommodationBean.capacity}"  class="form-control" id="capacity"  required="true" requiredMessage="* Capacity Can not be Blank..!">
                                                     <f:convertNumber integerOnly="true"/>
-                                                    <!--<f:validateLength minimum="1" />-->
+                                                    <f:validateLength minimum="1" />
                                                 </h:inputText>
+                                            </div>-->
+
+                                            <div class="row mt-2">
+                                                <div class="col-sm-4">
+                                                    <h:message for="roomNumber" style="color: red"/>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <h:message for="capacity" style="color: red"/>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <h:message for="price" style="color: red"/>
+                                                </div>
                                             </div>
                                             
+                                            
                                             <div class="row mb-2">
+                                                <div class="col-sm-4">
+                                                    <label for="type" class="form-label h5"> Room Type : </label>
+                                                    <h:inputText value="#{accommodationBean.roomNumber}" class="form-control w-75" id="roomNumber" required="true" requiredMessage="* Room Number Can not be Blank..!"/>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="capacity" class="form-label h5">Capacity :</label>
+                                                    <h:inputText value="#{accommodationBean.capacity}"  class="form-control w-75" id="capacity"  required="true" requiredMessage="* Capacity Can not be Blank..!">
+                                                        <f:convertNumber integerOnly="true"/>
+                                                    </h:inputText>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="price" class="form-label h5">Price : </label>
+                                                    <h:inputText value="#{accommodationBean.price}"  class="form-control w-75" id="price"  required="true" requiredMessage="* Price Can not be Blank..!">
+                                                        <f:convertNumber integerOnly="true"/>
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                            
+                                            
+<!--                                            <div class="row mb-2">
                                                 <label for="price" class="col-sm-2 form-label h5">Price : </label>
                                                 <div class="col-sm-10">
                                                     <h:message for="price" style="color: red"/>
@@ -226,7 +259,7 @@
                                                 <h:inputText value="#{accommodationBean.price}"  class="form-control" id="price"  required="true" requiredMessage="* Price Can not be Blank..!">
                                                     <f:convertNumber integerOnly="true"/>
                                                 </h:inputText>
-                                            </div>
+                                            </div>-->
                                             
                                             <div class="mb-3">
                                                 <h:commandButton id="save" class="btn btn-primary fs-5 float-end mb-4" action="#{accommodationBean.insertAccommodation()}" value="Save"/>

@@ -52,33 +52,25 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                         <h:link outcome="home.jsf" value="Home" class="nav-item nav-link active"/>
-                        <h:link outcome="services.jsf" value="Services" class="nav-item nav-link"/>
-                        <h:link outcome="package.jsf" value="Packages" class="nav-item nav-link"/>
-                        <h:link outcome="feedback.jsf" value="Feedback" class="nav-item nav-link"/>
-                        <h:link outcome="about.jsf" value="About" class="nav-item nav-link"/>
-                    <!--</div>-->
+                        <h:link outcome="/Users/services.jsf" value="Services" class="nav-item nav-link"/>
+                        <h:link outcome="/Users/Package/package.jsf" value="Packages" class="nav-item nav-link"/>
+                        <h:link outcome="/Users/Feedback/feedback.jsf" value="Feedback" class="nav-item nav-link"/>
+                        <h:link outcome="/Users/about.jsf" value="About" class="nav-item nav-link"/>
                     
-                    <div class="navbar-nav align-items-center">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <p:graphicImage class="rounded me-lg-2" url="../img/UserAvatar1.jpg"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
-                            <p:outputLabel value="#{loginBean.username}" styleClass="h3 fw-bolder d-none d-lg-inline-flex"/>
-                            <!--<span class="h5 fw-bolder d-none d-lg-inline-flex" style="color: #5959f9">John Doe</span>-->
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-info border-primary rounded-0 rounded-bottom m-0">
-                            <p:button value="My Profile" outcome="profile.jsf" style="color: #13357B;background-color: white" class="dropdown-item"/>
-                            <p:button value="Logout" outcome="/logout.jsf" style="color: #13357B;background-color: white" class="my-2 dropdown-item"/>
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <p:graphicImage class="rounded me-lg-2" value="/public/profileUploads/#{loginBean.selectedUser.photo}" alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                                    <p:outputLabel value="#{loginBean.userInfo.username}"  style="font-size: 125%"/>
+                                    <!--<span class="h5 fw-bolder d-none d-lg-inline-flex" style="color: #5959f9">John Doe</span>-->
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end bg-light border-info border-primary rounded-0 rounded-bottom m-0">
+                                    <p:button value="My Profile" outcome="profilePage.jsf" style="color: #13357B;background-color: white" class="dropdown-item"/>
+                                    <p:button value="Logout" outcome="/logout.jsf" style="color: #13357B;background-color: white" class="my-2 dropdown-item"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                </div>
-                    
-<!--                    <h:link value="Login" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4" style="color: white" outcome="login.jsf">
-                            <i class="fa fa-sign-in-alt me-2"></i>
-                        </h:link>
-                        <h:link value="Register" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4" style="color: white" outcome="register.jsf">
-                            <i class="fa fa-user me-2"></i>
-                        </h:link>-->
                 </div>
             </nav>
 

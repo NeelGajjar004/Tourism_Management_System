@@ -259,7 +259,7 @@ public class JakartaEE8Resource {
         return abl.getAllPackage();
     }
     
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Admin","User"})
     @GET
     @Path("getPackageByDestination/{destination}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -267,7 +267,7 @@ public class JakartaEE8Resource {
         return abl.getPackageByDestination(destination);
     }
     
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Admin","User"})
     @GET
     @Path("getPackageByPrice/{price}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -275,7 +275,7 @@ public class JakartaEE8Resource {
         return abl.getPackageByPrice(price);
     }
     
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Admin","User"})
     @GET
     @Path("getPackageByTransportationType/{transportationtype}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -283,7 +283,7 @@ public class JakartaEE8Resource {
         return abl.getPackageByTransportationType(transportationtype);
     }
     
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Admin","User"})
     @GET
     @Path("getPackageByCompany/{cid}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -291,7 +291,7 @@ public class JakartaEE8Resource {
         return abl.getPackageByCompany(cid);
     }
     
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Admin","User"})
     @GET
     @Path("getPackageById/{pid}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -363,7 +363,7 @@ public class JakartaEE8Resource {
     
 //   ====>      ----: Users APIs :----
     
-    @RolesAllowed("User")
+    @RolesAllowed({"Admin","User"})
     @POST
     @Path("updateProfile/{username}/{email}/{password}/{gender}/{photo}/{dob}/{phoneno}/{address}")
     public boolean updateProfile(@PathParam("username") String username,@PathParam("email") String email,@PathParam("password") String password,@PathParam("gender") String gender,@PathParam("photo") String photo,@PathParam("dob") Date dob,@PathParam("phoneno") BigInteger phoneno,@PathParam("address") String address){

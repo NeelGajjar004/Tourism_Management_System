@@ -1,11 +1,241 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <meta charset="utf-8"/>
+        <title>Tourism Advisor - My Profile</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="" name="keywords"/>
+        <meta content="" name="description"/>
+
+         <!--Favicon--> 
+        <link href="img/favicon.ico" rel="icon"/>
+
+         <!--Google Web Fonts--> 
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <!--<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap;" rel="stylesheet"/>-->
+
+         <!--Icon Font Stylesheet--> 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"/>
+
+         <!--Libraries Stylesheet--> 
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"/>
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
+
+         <!--Customized Bootstrap Stylesheet--> 
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+         <!--Template Stylesheet--> 
+        <link href="css/style.css" rel="stylesheet"/>
+        
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="container-fluid position-relative bg-white d-flex p-0">
+<!--         Spinner Start 
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+         Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <h:link outcome="/index.jsf" class="navbar-brand mx-4 mb-3">
+                    <h4 class="text-primary"><i class="fa fa-map-marker-alt me-2"></i>Tourism Advisor</h4>
+                </h:link>
+                <div class="navbar-nav w-100">
+                    <h:link outcome="adminDashboard.jsf" class="h4 fw-bold nav-item nav-link active" value="Dashboard"/>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Company</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="Company/addCompany.jsf" class="h5 dropdown-item" value="Add Company"/>
+                            <h:link outcome="Company/displayCompany.jsf" class="h5 dropdown-item" value="Company List"/>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Packages</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="Package/addPackage.jsf" class="h5 dropdown-item" value="Add Package"/>
+                            <h:link outcome="Package/displayPackage.jsf" class="h5 dropdown-item" value="Package List"/>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="h4 fw-bold nav-link dropdown-toggle-split" data-bs-toggle="dropdown">Accommodation</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <h:link outcome="Accommodation/addAccommodation.jsf" class="h5 dropdown-item" value="Add Accommodation"/>
+                            <h:link outcome="Accommodation/displayAccommodation.jsf" class="h5 dropdown-item" value="Accommodation List"/>
+                        </div>
+                    </div>
+                    <h:link outcome="Booking/displayBooking.jsf" class="h4 fw-bold nav-item nav-link" value="Booking List"/>
+                    <h:link outcome="Payment/displayPayment.jsf" class="h4 fw-bold nav-item nav-link" value="Payment List"/>
+                    <h:link outcome="Feedback/displayFeedback.jsf" class="h4 fw-bold nav-item nav-link" value="Feedback List"/>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <h:link outcome="/index.jsf" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-map-marker-alt"></i></h2>
+                </h:link>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <h:link outcome="/index.jsf" class="d-none d-md-flex ms-4">
+                    <h3 class="text-primary border-0"><i class="fa fa-map-marker-alt me-2"></i>Tourism Advisor</h3>
+                </h:link>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <p:graphicImage class="rounded me-lg-2" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                            <span class=" h5 d-none d-lg-inline-flex">#{loginBean.userInfo.username}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <p:button value="My Profile" outcome="profilePage.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
+                            <p:button value="Logout" outcome="/logout.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+
+            <!-- Blank Start -->
+            <div class="container-fluid pt-5 px-5">
+                <div class="row h-auto bg-light rounded align-items-center justify-content-center mx-0">
+                    
+                    <h:form enctype="multipart/form-data">
+                        <div class="row">
+                                <div class="col-md-3 border-right pb-3">
+                                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                        
+                                        <p:graphicImage class="rounded mt-5 mb-5" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found" style="width: 170px;height: 160px"/>
+                                        <!--<img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>-->
+                                        <!--<span class="font-weight-bold">-->
+                                            <p:fileUpload value="#{loginBean.file}" mode="simple" skinSimple="true"/>
+                                        <!--</span>-->
+                                        <!--<span class="text-black-50">#{loginBean.userInfo.email} </span>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-8 border-right pb-3">
+                                    <div class="p-3 py-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div class="col-md-6 text-center h1 fw-bold text-primary">Edit Profile</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                <p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="Name : "/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p:inputText style="font-size: 150%;font-weight: bold;color: #009CFF;margin-left: 2%" value="#{loginBean.selectedUser.username}" readonly="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                <p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="Email Address : "/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p:inputText style="font-size: 150%;font-weight: bold;color: #009CFF" value="#{loginBean.selectedUser.email}" readonly="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                <p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="Gender : "/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <!--<p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="#{loginBean.userInfo.gender}"/>-->
+                                                <p:selectOneRadio style="font-size: 150%;font-weight: bold;color: #009CFF" value="#{loginBean.selectedUser.gender}">
+                                                    <f:selectItem itemLabel="Male" itemValue="Male"/>
+                                                    <f:selectItem itemLabel="Female" itemValue="Female"/>
+                                                    <f:selectItem itemLabel="Others" itemValue="Others"/>
+                                                </p:selectOneRadio>
+
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                <p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="Date Of Birth : "/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p:datePicker id="dob" inputStyle="font-size: 125%;color: #009CFF" value="#{loginBean.selectedUser.dob}" showIcon="true" showOnFocus="false"  pattern="dd-MM-yyyy" required="true" requiredMessage="* please select Birth Date"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                <p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="Phone Number : "/>
+
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p:inputNumber inputStyle="font-size: 150%;font-weight: bold;color: #009CFF" value="#{loginBean.selectedUser.phoneno}" maxValue="9999999999"/>
+                                                    
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                <p:outputLabel style="font-size: 150%;font-weight: bold;color: #009CFF" value="Address : "/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p:inputText style="font-size: 150%;font-weight: bold;color: #009CFF" value="#{loginBean.selectedUser.address}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row float-end mb-5 mt-3 text-center">
+                                                <p:commandButton value="Update Profile" action="#{loginBean.updateProfile()}" class="btn btn-primary fw-bold" onclick="return confirm('Are you Sure want to Update Profile ?')"/>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </h:form>
+
+                </div>
+            </div>
+            <!-- Blank End -->
+
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-3 px-5">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 text-center text-sm-center" style="font-weight: bold;color: #13357B">
+                            <i class="fas fa-copyright me-2"/><p:link outcome="/index.jsf" style="font-weight: bold;color: #13357B" value="Tourism Advisor"/>, All Right Reserved. 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <!--<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
     </h:body>
 </html>

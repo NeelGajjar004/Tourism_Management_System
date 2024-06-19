@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
+import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
  *
@@ -24,6 +25,7 @@ import javax.ws.rs.core.Response;
 public class TestingServlet extends HttpServlet {
     
     @Inject RestClient rc;
+    Pbkdf2PasswordHashImpl hp = new Pbkdf2PasswordHashImpl();
     Response rs;
     
 
@@ -51,7 +53,7 @@ public class TestingServlet extends HttpServlet {
             
 //            Users u = rc.Login("admin");
             
-//            out.println(u.getUsername());
+//            out.println( "admin123 :- "+hp.generate("admin123".toCharArray()));
 //            out.println(u.getEmail());
 //            out.println(u.getPassword());
 //            out.println(u.getGender());

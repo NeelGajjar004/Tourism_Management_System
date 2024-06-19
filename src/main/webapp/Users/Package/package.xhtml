@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Tourism Advisor - Package</title>
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+        <!--<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">--> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"/>
+
+        <!-- Libraries Stylesheet -->
+        <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"></link>
+        <link href="../lib/lightbox/css/lightbox.min.css" rel="stylesheet"></link>
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet"></link>
+
+        <!-- Template Stylesheet -->
+        <link href="../css/style.css" rel="stylesheet"></link>
+        
+        <style>
+            .package-item .package-item-content {
+                border: 1px solid var(--surface-d);
+                border-radius: 3px;
+                margin: .3rem;
+                text-align: center;
+                padding: 2rem 0;
+            }
+
+            .package-item .package-image {
+                width: 50%;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Tourism Advisor</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <h:link outcome="/Users/home.jsf" value="Home" class="nav-item nav-link"/>
+                        <h:link outcome="/Users/services.jsf" value="Services" class="nav-item nav-link"/>
+                        <h:link outcome="package.jsf" value="Packages" class="nav-item nav-link active"/>
+                        <h:link outcome="/Users/Feedback/feedback.jsf" value="Feedback" class="nav-item nav-link"/>
+                        <h:link outcome="/Users/about.jsf" value="About" class="nav-item nav-link"/>
+                    
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <p:graphicImage class="rounded me-lg-2" value="/public/profileUploads/#{loginBean.selectedUser.photo}" alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                                    <p:outputLabel value="#{loginBean.userInfo.username}"  style="font-size: 125%"/>
+                                    <!--<span class="h5 fw-bolder d-none d-lg-inline-flex" style="color: #5959f9">John Doe</span>-->
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end bg-light border-info border-primary rounded-0 rounded-bottom m-0">
+                                    <p:button value="My Profile" outcome="/Users/profilePage.jsf" style="color: #13357B;background-color: white" class="dropdown-item"/>
+                                    <p:button value="Logout" outcome="/logout.jsf" style="color: #13357B;background-color: white" class="my-2 dropdown-item"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Navbar & Hero End -->
+        
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-4">Package</h3>
+            </div>
+        </div>
+        <!-- Header End -->
+        
+        <!--Package Start-->
+        <div class="card">
+            <p:carousel value="#{userPackageBean.packages}" var="pack" circular="true" autoplayInterval="3000"
+                        responsiveOptions="#{userPackageBean.responsiveOptions}" numVisible="3" numScroll="1">
+<!--            <f:facet name="header">
+                <h5>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h5>
+            </f:facet>-->
+                <div class="package-item">
+                <div class="package-item-content">
+                    <div class="mb-3">
+                        <p:graphicImage value="/public/uploads/#{pack.photos}" height="300" width="400" alt="Image Not Found"/>
+                    </div>
+                    <div>
+                        <h4 class="mb-1">#{pack.pname}</h4>
+                        <h6 class="mt-0 mb-3">
+                            <h:outputText value="#{pack.price}">
+                                <f:convertNumber type="currency" pattern="¤#0" currencySymbol="&#8377;" />
+                            </h:outputText>
+                        </h6>
+                        <!--<span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>-->
+                        <div class="mt-5">
+                            <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button mr-2" />
+                            <!--<p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />-->
+                            <!--<p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" />-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p:carousel>
+    </div>
+        <!--Package End-->
+        
+        
+        
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright text-body py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-12 text-center text-md-center mb-md-0">
+                        <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">Tourism Advisor</a>, All right reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </h:body>
+</html>

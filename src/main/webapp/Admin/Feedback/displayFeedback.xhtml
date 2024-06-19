@@ -86,8 +86,8 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <p:graphicImage class="rounded me-lg-2" url="../img/UserAvatar1.jpg"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
-                            <span class=" h5 d-none d-lg-inline-flex">#{loginBean.user}</span>
+                            <p:graphicImage class="rounded me-lg-2" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                            <span class=" h5 d-none d-lg-inline-flex">#{loginBean.userInfo.username}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <p:button value="My Profile" outcome="/Admin/profilePage.jsf" style="color: #009CFF;background-color: white" class="dropdown-item"/>

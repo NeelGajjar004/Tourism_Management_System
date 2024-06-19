@@ -37,11 +37,11 @@
     <h:body>
         <div class="container-fluid position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+<!--        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div>-->
         <!-- Spinner End -->
 
 
@@ -99,7 +99,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <p:graphicImage class="rounded me-lg-2" url="img/UserAvatar1.jpg"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
+                            <p:graphicImage class="rounded me-lg-2" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found" style="width: 45px; height: 45px;"/>
                             <span class=" h5 d-none d-lg-inline-flex">#{loginBean.userInfo.username}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -113,20 +113,23 @@
 
 
             <!-- Blank Start -->
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-5 px-5">
                 <div class="row h-auto bg-light rounded align-items-center justify-content-center mx-0">
                     <!--<div class="container rounded bg-white mt-5 mb-5">-->
                         <div class="row">
-                            <div class="col-md-3 border-right">
+                            <div class="col-md-3 border-right pb-3">
                                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                    <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>
-                                    <span class="font-weight-bold">#{loginBean.userInfo.username}</span>
-                                    <span class="text-black-50">#{loginBean.userInfo.email} </span></div>
+                                    <!--<p:graphicImage class="rounded-circle mt-5" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found" style="width: 150px;"/>-->
+                                    <p:graphicImage class="rounded mt-5" value="/public/profileUploads/#{loginBean.selectedUser.photo}"  alt="Image Not Found#{loginBean.selectedUser.photo}" style="width: 170px;height: 160px"/>
+                                    <!--<img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>-->
+                                    <!--<span class="font-weight-bold">#{loginBean.userInfo.username}</span>-->
+                                    <!--<span class="text-black-50">#{loginBean.userInfo.email} </span>-->
+                                </div>
                             </div>
-                            <div class="col-md-8 border-right">
+                            <div class="col-md-8 border-right pb-3">
                                 <div class="p-3 py-5">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="col-md-6 text-center h3 fw-bold">My Profile</div>
+                                        <div class="col-md-6 text-center h1 fw-bold text-primary">My Profile</div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-4">
@@ -191,7 +194,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="row float-end mb-3 text-center">
+                                    <div class="row float-end mb-5 mt-3 text-center">
                                         <h:form>
                                             <p:commandButton value="Edit Profile" action="#{loginBean.redirectToUpdateProfile()}" class="btn btn-primary fw-bold">
                                                 <f:setPropertyActionListener value="#{loginBean.userInfo}" target="#{loginBean.selectedUser}"/>
@@ -208,7 +211,7 @@
 
 
             <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-3 px-5">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 text-center text-sm-center" style="font-weight: bold;color: #13357B">

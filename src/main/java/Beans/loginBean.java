@@ -5,6 +5,7 @@
 package Beans;
 
 import client.RestClient;
+import ejb.UserBeanLocal;
 import entity.Users;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -14,6 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -48,6 +51,7 @@ public class loginBean implements Serializable{
     Users selectedUser;
     Collection<Users> users;
     GenericType<Collection<Users>> gusers;
+    @EJB UserBeanLocal ubl;
     
     private String errorStatus = "";
     
@@ -168,7 +172,7 @@ public class loginBean implements Serializable{
             try(InputStream input = file.getInputStream()){
                 fileName = file.getFileName();
 
-                OutputStream output = new FileOutputStream("D:/Collega Work/MScIT_Sem-8/Project/TourismAdvisor/src/main/webapp/public/uploads/" + fileName);
+                OutputStream output = new FileOutputStream("D:/Collega Work/MScIT_Sem-8/Project/TourismAdvisor/src/main/webapp/public/profileUploads/" + fileName);
                 try {
                     byte[] buffer = new byte[1024];
                     int bytesRead;
@@ -191,15 +195,19 @@ public class loginBean implements Serializable{
             String filename = uploadfile();
             
             if(filename.isEmpty()){
-                upPro = rc.updateProfile(boolean.class, selectedUser.getUsername(), selectedUser.getEmail(), selectedUser.getPassword(), selectedUser.getGender(),selectedUser.getPhoto(), String.valueOf(selectedUser.getDob()),String.valueOf(selectedUser.getPhoneno()), selectedUser.getAddress());
+//                upPro = rc.updateProfile(boolean.class, selectedUser.getUsername(), selectedUser.getEmail(), selectedUser.getPassword(), selectedUser.getGender(),selectedUser.getPhoto(), String.valueOf(selectedUser.getDob()),String.valueOf(selectedUser.getPhoneno()), selectedUser.getAddress());
+                upPro = ubl.updateProfile(selectedUser.getUsername(), selectedUser.getEmail(), selectedUser.getPassword(), selectedUser.getGender(),selectedUser.getPhoto(), selectedUser.getDob(),selectedUser.getPhoneno(), selectedUser.getAddress());
             }else{
-                upPro = rc.updateProfile(boolean.class, selectedUser.getUsername(), selectedUser.getEmail(), selectedUser.getPassword(), selectedUser.getGender(),filename, String.valueOf(selectedUser.getDob()),String.valueOf(selectedUser.getPhoneno()), selectedUser.getAddress());
+//                upPro = rc.updateProfile(boolean.class, selectedUser.getUsername(), selectedUser.getEmail(), selectedUser.getPassword(), selectedUser.getGender(),filename, String.valueOf(selectedUser.getDob()),String.valueOf(selectedUser.getPhoneno()), selectedUser.getAddress());
+                upPro = ubl.updateProfile(selectedUser.getUsername(), selectedUser.getEmail(), selectedUser.getPassword(), selectedUser.getGender(),filename, selectedUser.getDob(),selectedUser.getPhoneno(), selectedUser.getAddress());
             }
             if(upPro){
                 if(KeepRecord.getRoles().contains("Admin")){
                     FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Admin/adminDashboard.jsf");
+                    return;
                 }else{
                     FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Users/home.jsf");
+                    return;
                 }
             }
         }catch(Exception e){
