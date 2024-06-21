@@ -114,9 +114,15 @@ public class userPackageBean implements Serializable {
 
     public Collection<Package> getDestinationPackages() {
         try{
-            rs = rc.getPackageByDestination(Response.class,destination);
-            destinationPackages = rs.readEntity(gdestinationPackages);
-            return destinationPackages;
+            if(destination.isEmpty()){
+                    rs = rc.getAllPackage(Response.class);
+                    packages = rs.readEntity(gpackages);
+                    return packages;
+            }else{
+                rs = rc.getPackageByDestination(Response.class,destination);
+                destinationPackages = rs.readEntity(gdestinationPackages);
+                return destinationPackages;
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

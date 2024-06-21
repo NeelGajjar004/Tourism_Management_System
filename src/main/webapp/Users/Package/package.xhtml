@@ -91,32 +91,48 @@
         <div class="card">
             <p:carousel value="#{userPackageBean.packages}" var="pack" circular="true" autoplayInterval="3000"
                         responsiveOptions="#{userPackageBean.responsiveOptions}" numVisible="3" numScroll="1">
-<!--            <f:facet name="header">
-                <h5>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h5>
-            </f:facet>-->
                 <div class="package-item">
                 <div class="package-item-content">
                     <div class="mb-3">
                         <p:graphicImage value="/public/uploads/#{pack.photos}" height="300" width="400" alt="Image Not Found"/>
                     </div>
                     <div>
-                        <h4 class="mb-1">#{pack.pname}</h4>
-                        <h6 class="mt-0 mb-3">
+                        <h4 class="mt-2 mb-1 fw-bold">#{pack.pname}</h4>
+                        <h4>Destination : #{pack.destination}</h4>
+                        <h4>Date : <h:outputText value="#{pack.startdate}">
+                                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                    </h:outputText> - 
+                                    <h:outputText value="#{pack.enddate}">
+                                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                    </h:outputText>
+                        </h4>
+                        <h4 class="mt-0 mb-2"> Price :
                             <h:outputText value="#{pack.price}">
                                 <f:convertNumber type="currency" pattern="¤#0" currencySymbol="&#8377;" />
                             </h:outputText>
-                        </h6>
-                        <!--<span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>-->
-                        <div class="mt-5">
-                            <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button mr-2" />
-                            <!--<p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />-->
-                            <!--<p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" />-->
+                        </h4>
+                        <div class="mt-2">
+                            <p:commandButton type="button" value="Book Now" icon="pi pi-book" styleClass="rounded-button mr-2" />
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </p:carousel>
     </div>
+        
+<!--        <h:form>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <span style="font-weight: bold"><h3>Search Package</h3></span>
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:inputText value="#{userPackageBean.destination}" class="mr-2"/>
+                    <p:commandButton value="Search" action="#{userPackageBean.destinationPackages}" icon="pi pi-search"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+        </h:form>-->
+        
         <!--Package End-->
         
         
@@ -137,13 +153,13 @@
         <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="../lib/easing/easing.min.js"></script>
+        <script src="../lib/waypoints/waypoints.min.js"></script>
+        <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="../lib/lightbox/js/lightbox.min.js"></script>
         
 
         <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <script src="../js/main.js"></script>
     </h:body>
 </html>
